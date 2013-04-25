@@ -6,25 +6,37 @@ import java.util.Map;
 
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
+import edu.ycp.cs320.chronos.shared.EventInvitation;
 import edu.ycp.cs320.chronos.shared.IDatabase;
 
 public class FakeDatabase implements IDatabase {
 	private Map<String, Event> nameToEventMap;
 	private Map<String, Account> accountMap;
-	//Nested Maps to manage events of an account
-	private Map<Map<String, Account>, Map<String, Event>> accountToEventMap;
+	//Use Maps to organize events to accounts
+	
+	/*Each key(event) will have the value of which user is the author
+	 * Every time an event is created, this Hashmap MUST be updated to insure
+	 * proper data retrieval from the FakeDatabase		
+	*/
+	private Map<Event, String> eventAuthor;
+	private ArrayList<Account> accountList;
+	private ArrayList<Event> eventList;
+	private ArrayList<EventInvitation> eventInvitationList;
 	
 	public FakeDatabase() {
 		nameToEventMap = new HashMap<String, Event>();
 		accountMap = new HashMap<String, Account>();
+		eventAuthor = new HashMap<Event, String>();
 		
-		createEvent("Christmas", 12, 25, 2013, 1200, 2400, "Christmas");
-		createEvent("New Years", 1, 1, 2014, 1200, 2400, "New Years day!");
-		createEvent("Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");
-		
+		//Create test accounts
 		createAccount("Spongebob", "Squarepants", "x@y.z");
 		createAccount("Patric", "Star", "a@b.c");
 		createAccount("Sandy", "Cheeks", "q@r.s");
+		//Create test events to work with
+		createEvent("Spongebob", "Christmas", 12, 25, 2013, 1200, 2400, "Christmas");
+		createEvent("Spongebob", "New Years", 1, 1, 2014, 1200, 2400, "New Years day!");
+		createEvent("Spongebob", "Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");		
+		
 	}
 
 	//@Override
@@ -39,6 +51,7 @@ public class FakeDatabase implements IDatabase {
 	 *            Note: Replace current method of doing this with recursion
 	 */
 	public Event getNextEvent(Account user, int month, int day, int year){
+		String usr = user.getUserName();
 		ArrayList<Event> events = user.getTodaysEvents(month, day, year);
 		Event nextEvent = events.get(0); //Set the "nextEvent] to the first Event in the arrayList "events"
 		//Sift through the array list to find the next coming event
@@ -85,10 +98,10 @@ public class FakeDatabase implements IDatabase {
 	 * @param endTime
 	 * @param details
 	 */
-	public void createEvent(String eventName, int month, int day, int year, int startTime, int endTime, String details){
+	public void createEvent(String user, String eventName, int month, int day, int year, int startTime, int endTime, String details){
 		Event e = new Event(month, day, year, startTime, endTime, details, eventName);
-		e.setName(eventName);
-		nameToEventMap.put(eventName, e);
+		eventAuthor.put(e, user);	//Associate the event with its author
+		//nameToEventMap.put(eventName, e);
 	}
 	public boolean isDupEvent(String eventName){
 		if(!nameToEventMap.containsKey(eventName)){
@@ -147,6 +160,13 @@ public class FakeDatabase implements IDatabase {
 		else{ 
 			return true;
 		}
+	}
+
+	@Override
+	public void createEvent(String eventName, int month, int day, int year,
+			int startTime, int endTime, String details) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

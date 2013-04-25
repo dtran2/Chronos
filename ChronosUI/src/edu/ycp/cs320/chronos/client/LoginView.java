@@ -22,6 +22,9 @@ public class LoginView extends Composite {
 	private PasswordTextBox password;
 	public LoginView() {
 		final LayoutPanel loginPanel = new LayoutPanel();
+		
+		loginPanel.setStyleName("chronos-loginPanel-bg", true);
+		
 		initWidget(loginPanel);
 		loginPanel.setSize("590px", "415px");
 		

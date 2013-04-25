@@ -18,6 +18,8 @@ public class ChronosUI implements EntryPoint{
 	public void onModuleLoad() {
 		GWT.log("Reached entry point!");
 		
+		RootLayoutPanel.get().setStyleName("makeitred", true);
+		
 		instance = this;
 		
 		setCurrentView(new LoginView());

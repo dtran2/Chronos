@@ -42,7 +42,7 @@ public class mainView extends Composite{
 		
 		//Displays the user's upcoming event information
 		
-		Label nextEvent = new Label("Next Event");
+		Label nextEvent = new Label();
 		mainPanel.add(nextEvent);
 		mainPanel.setWidgetLeftWidth(nextEvent, 113.0, Unit.PX, 372.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(nextEvent, 50.0, Unit.PX, 57.0, Unit.PX);
