@@ -1,5 +1,6 @@
 package edu.ycp.cs320.chronos.server;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,24 +19,25 @@ public class FakeDatabase implements IDatabase {
 	 * Every time an event is created, this Hashmap MUST be updated to insure
 	 * proper data retrieval from the FakeDatabase		
 	*/
-	private Map<Event, String> eventAuthor;
+	private int accountIDCount;	//Handles current account id when making a new account
+	private int eventIDCount;	//Handles current event id when making a new Event
 	private ArrayList<Account> accountList;
 	private ArrayList<Event> eventList;
 	private ArrayList<EventInvitation> eventInvitationList;
 	
 	public FakeDatabase() {
-		nameToEventMap = new HashMap<String, Event>();
-		accountMap = new HashMap<String, Account>();
-		eventAuthor = new HashMap<Event, String>();
+		accountIDCount = 0;
+		eventList = new ArrayList<Event>();
+		accountList = new ArrayList<Account>();
 		
 		//Create test accounts
 		createAccount("Spongebob", "Squarepants", "x@y.z");
 		createAccount("Patric", "Star", "a@b.c");
 		createAccount("Sandy", "Cheeks", "q@r.s");
 		//Create test events to work with
-		createEvent("Spongebob", "Christmas", 12, 25, 2013, 1200, 2400, "Christmas");
-		createEvent("Spongebob", "New Years", 1, 1, 2014, 1200, 2400, "New Years day!");
-		createEvent("Spongebob", "Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");		
+		createEvent(getAccount("Spongebob").getID(), "Christmas", 12, 25, 2013, 1200, 2400, "Christmas");
+		createEvent(getAccount("Spongebob").getID(), "New Years", 1, 1, 2014, 1200, 2400, "New Years day!");
+		createEvent(getAccount("Spongebob").getID(), "Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");
 		
 	}
 
@@ -64,33 +66,45 @@ public class FakeDatabase implements IDatabase {
 		return nextEvent;
 	}
 		
-		
-	public Event findEvent(String eventName) {
-		return nameToEventMap.get(eventName);
+	/**
+	 * Uses the given int eventID to return
+	 * the specified event object. Returns null if
+	 * the event cannot be found.	
+	 * @param eventID
+	 * @return
+	 */
+	public Event findEvent(int eventID) {
+		for(int i = 0; i < eventList.size(); i++){
+			if(eventList.get(i).getID() == eventID){
+				return eventList.get(i);
+			}
+		}
+		return null;
 	}
-	public int getMonth(String eventName){
-		return findEvent(eventName).getMonth();
+	public int getMonth(int eventID){
+		return findEvent(eventID).getMonth();
 	}
-	public int getDay(String eventName){
-		return findEvent(eventName).getDay();
+	public int getDay(int eventID){
+		return findEvent(eventID).getDay();
 	}
-	public int getYear(String eventName){
-		return findEvent(eventName).getYear();
+	public int getYear(int eventID){
+		return findEvent(eventID).getYear();
 	}
-	public int getStartTime(String eventName){
-		return findEvent(eventName).getStartTime();
+	public int getStartTime(int eventID){
+		return findEvent(eventID).getStartTime();
 	}
-	public int getEndTime(String eventName){
-		return findEvent(eventName).getEndTime();
+	public int getEndTime(int eventID){
+		return findEvent(eventID).getEndTime();
 	}
-	public String getDetails(String eventName){
-		return findEvent(eventName).getDetails();
+	public String getDetails(int eventID){
+		return findEvent(eventID).getDetails();
 	}
 	
 	/**
-	 * Create an event
-	 * Add event to "nameToEventMap" Map
-	 * @param eventName 
+	 * Create an event using the specified values.
+	 * Add the new event to eventList (ArrayList<Event>)
+	 * @param ownerID	Account ID of event's creator
+	 * @param eventName
 	 * @param month
 	 * @param day
 	 * @param year
@@ -98,11 +112,13 @@ public class FakeDatabase implements IDatabase {
 	 * @param endTime
 	 * @param details
 	 */
-	public void createEvent(String user, String eventName, int month, int day, int year, int startTime, int endTime, String details){
-		Event e = new Event(month, day, year, startTime, endTime, details, eventName);
-		eventAuthor.put(e, user);	//Associate the event with its author
-		//nameToEventMap.put(eventName, e);
+	public void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime, int endTime, String details){
+		Event e = new Event(eventIDCount, ownerID, month, day, year, startTime, endTime, details, eventName);
+		eventIDCount++;
+		eventList.add(e);
 	}
+	/*The below function may be useless with newly organized database
+	 */
 	public boolean isDupEvent(String eventName){
 		if(!nameToEventMap.containsKey(eventName)){
 			return false;
@@ -123,14 +139,48 @@ public class FakeDatabase implements IDatabase {
 	/**
 	 * Methods for handling Account info.
 	 */
+	
+	/**
+	 * Uses the user inputed values to
+	 * create an new Account and add it to 
+	 * accountList.Uses the database's accountIDCount value to associate the new
+	 * account with a unique ID. Updates accountIDCount
+	 * @param usr
+	 * @param password
+	 * @param email
+	 */
 	public void createAccount(String usr, String password, String email){
 		System.out.println("Creating account for user=" + usr + ", pass=" + password);
-		Account a = new Account(usr, password, email);
+		Account a = new Account(accountIDCount, usr, password, email);
+		accountIDCount++;
 		System.out.println("Account password: " + a.getPassword());
 		accountMap.put(usr, a);	
 	}
-	public void removeAccount(String account){
-		accountMap.remove(account);
+	/**
+	 * Uses the given accountID
+	 * to remove an Account from accountList
+	 * @param accountID
+	 */
+	public void removeAccount(int accountID){
+		for(int i = 0; i < accountList.size(); i++){
+			if(accountList.get(i).getID() == accountID){
+				accountList.remove(i);				
+			}
+			
+		}
+	}
+	/**
+	 * Uses the given String username to find
+	 * the specified account
+	 * @param username
+	 */
+	public Account getAccount(String username){
+		for(int i = 0; i < accountList.size(); i++){
+			if(accountList.get(i).getUserName().compareTo(username) == 0){
+				return accountList.get(i);
+			}
+		}
+		return null;
 	}
 	/**
 	 * Method for verifying account username and password.
@@ -161,13 +211,6 @@ public class FakeDatabase implements IDatabase {
 			return true;
 		}
 	}
-
-	@Override
-	public void createEvent(String eventName, int month, int day, int year,
-			int startTime, int endTime, String details) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 
 }

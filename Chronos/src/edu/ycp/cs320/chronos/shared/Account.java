@@ -6,19 +6,24 @@ import java.util.ArrayList;
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private int id;
 	private String userName, password, emailAddress;
-	private ArrayList<Event> events;
+	private ArrayList<Event> events; // remove this?
 	
 	public Account() {
 		
 	}
 	
-	public Account(String usr, String pwd, String email){
+	public Account(int accountID, String usr, String pwd, String email){
+		this.id = accountID;
 		this.userName = usr;
 		this.password = pwd;
 		this.emailAddress = email;
 		this.events = new ArrayList();
 		
+	}
+	public int getID(){
+		return id;		
 	}
 	public String getUserName(){
 		return userName;

@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 public class Event implements Serializable {
 	private static final long serialVersionUID = 1L;
+		private int id;
 		private int month;
 		private int day;
 		private int year;
@@ -10,19 +11,28 @@ public class Event implements Serializable {
 		private int endTime;
 		private String details;
 		private String eventName;
+		private int ownerAccountId;
 		
 	public Event() {
 		
 	}
 		
-	public Event(int m, int d, int y, int st, int et, String de, String name){
-		this.month = m;
-		this.day = d;
-		this.year = y;
-		this.startTime = st;
-		this.endTime = et;
-		this.details = de;
-		this.eventName = name;
+	public Event(int eventID, int ownerID, int m, int d, int y, int st, int et, String de, String name){
+		id = eventID;
+		ownerAccountId = ownerID;
+		month = m;
+		day = d;
+		year = y;
+		startTime = st;
+		endTime = et;
+		details = de;
+		eventName = name;
+	}
+	public int getID(){
+		return id;		
+	}
+	public int getOwnerID(){
+		return ownerAccountId;
 	}
 	public int getMonth(){
 		return month;
