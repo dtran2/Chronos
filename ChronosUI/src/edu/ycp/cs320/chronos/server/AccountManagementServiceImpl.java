@@ -39,8 +39,8 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * Removes the specified account from the database
 	 * @param account
 	 */
-	public void removeAccount(String account){
-		DatabaseUtil.instance().removeAccount(account);	
+	public void removeAccount(int accountID){
+		DatabaseUtil.instance().removeAccount(accountID);	
 	}
 	
 	

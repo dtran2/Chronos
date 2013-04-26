@@ -10,6 +10,6 @@ public interface AccountManagementServiceAsync {
 	void createAccount(String usr, String password, String email,
 			AsyncCallback<Void> callback);
 
-	void removeAccount(String account, AsyncCallback<Void> callback);
+	void removeAccount(int accountID, AsyncCallback<Void> callback);
 
 }

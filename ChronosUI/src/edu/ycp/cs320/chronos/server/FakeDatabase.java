@@ -65,6 +65,24 @@ public class FakeDatabase implements IDatabase {
 		}
 		return nextEvent;
 	}
+	
+	
+	/**
+	 * Uses the given account id (UserID) to sift through the database's
+	 * arrayList of events and collects all user's events in an arrayList
+	 * @param userID
+	 * @return userEvents
+	 */
+	public ArrayList<Event> getAccountEvents(int userID){
+		ArrayList<Event> userEvents = new ArrayList<Event>();
+		for(int i = 0; i < eventList.size(); i++){
+			if(eventList.get(i).getOwnerID() == userID){
+				userEvents.add(eventList.get(i));
+			}
+			
+		}
+		return userEvents;		
+	}
 		
 	/**
 	 * Uses the given int eventID to return

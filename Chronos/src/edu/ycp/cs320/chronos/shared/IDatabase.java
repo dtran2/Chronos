@@ -11,6 +11,8 @@ public interface IDatabase {
 	public int getYear(int eventID);
 	public int getStartTime(int eventID);
 	public int getEndTime(int eventID);
+	public void createEvent(int ownerID, String eventName, int month, int day, int year, 
+			int startTime, int endTime, String details);
 	public String getDetails(int eventID);
 	boolean isDupEvent(String eventName);
 	public void removeEvent(String eventName);
