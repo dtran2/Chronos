@@ -12,7 +12,7 @@ import edu.ycp.cs320.chronos.shared.IDatabase;
 
 //import edu.ycp.cs320.pizza.server.DerbyDatabase.DatabaseConnection;
 
-
+/*
 public class ChronosDatabase implements IDatabase {
 	//set the database to the FakeDatabase.java
 	private static final String DATABASE = "../Chronos/edu/ycp/cs320/modelClasses/FakeDatabase.java";
@@ -201,4 +201,4 @@ public class ChronosDatabase implements IDatabase {
 		return false;
 	}
 
-}
+}*/

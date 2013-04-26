@@ -130,6 +130,4 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 		return DatabaseUtil.instance().getDetails(eventName);
 	}
 
-
-
 }
