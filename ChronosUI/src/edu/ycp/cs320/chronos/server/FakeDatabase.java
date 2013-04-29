@@ -207,16 +207,19 @@ public class FakeDatabase implements IDatabase {
 	 * @return true if password matches with the account; false otherwise
 	 */
 	public boolean verifyAccount(String usr, String password){
-		Account account = accountMap.get(usr);
-		if (account == null) {
-			System.out.println("No such account: " + usr);
-			return false;
-		}
-		if(account.getPassword().equals(password)){
-			return true;
+		if(accountList.contains(usr)){	//User exists within the database
+			System.out.println("Account exists: " + usr);
+			Account account = accountList.get(accountList.indexOf(usr));
+			if(account.getPassword().equals(password)){
+				return true;				
+			}
+			else{
+				System.out.println("Password does not match");
+				return false;
+			}
 		}
 		else{
-			System.out.println("Password does not match");
+			System.out.println("No such account: " + usr);
 			return false;
 		}
 	}
