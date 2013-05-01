@@ -15,7 +15,7 @@ public interface EventManagementService extends RemoteService {
 	public void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime,
 			int endTime, String details);
 	public Boolean isDupEvent(String eventName);
-	public void removeEvent(String eventName);
+	public void removeEvent(Event event);
 	public Event getNextEvent(Account user, int month, int day, int year);
 	public Event findEvent(int eventID);
 	public int getMonth(int eventID);

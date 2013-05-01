@@ -15,7 +15,7 @@ public interface IDatabase {
 			int startTime, int endTime, String details);
 	public String getDetails(int eventID);
 	boolean isDupEvent(String eventName);
-	public void removeEvent(String eventName);
+	public void removeEvent(Event event);
 	public void createAccount(String usr, String password, String email);
 	public void removeAccount(int accountID);
 	public Account getAccount(String username);

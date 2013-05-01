@@ -83,7 +83,24 @@ public class FakeDatabase implements IDatabase {
 		}
 		return userEvents;		
 	}
-		
+	/**
+	 * Returns the a list of the user's events, returns NULL if there are no events found for today.
+	 * @param userID
+	 * @param month
+	 * @param day
+	 * @param year
+	 * @return
+	 */
+	public ArrayList<Event> getTodaysEvents(int userID, int month, int day, int year){
+		ArrayList<Event> userEvents = getAccountEvents(userID);
+		ArrayList<Event> today = new ArrayList<Event>();
+		for(int i = 0; i < userEvents.size(); i++){
+			if(userEvents.get(i).getMonth() == month && userEvents.get(i).getDay() == day && userEvents.get(i).getYear() == year){
+				today.add(userEvents.get(i));
+			}
+		}
+		return today;
+	}
 	/**
 	 * Uses the given int eventID to return
 	 * the specified event object. Returns null if
@@ -229,7 +246,6 @@ public class FakeDatabase implements IDatabase {
 	 * it already exists within the database
 	 */
 	public boolean isDupAccount(String account){
-		int counter = 0;
 		for(int i = 0; i < accountList.size(); i++){
 			if(accountList.get(i).getUserName().equals(account)){
 				return true;
@@ -237,6 +253,7 @@ public class FakeDatabase implements IDatabase {
 		}
 		return false;
 	}
+
 	
 
 }

@@ -9,7 +9,7 @@ public interface EventManagementServiceAsync {
 	void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime,
 			int endTime, String details, AsyncCallback<Void> callback);
 	void isDupEvent(String eventName, AsyncCallback<Boolean> callback);
-	void removeEvent(String eventName, AsyncCallback<Void> callback);
+	void removeEvent(Event event, AsyncCallback<Void> callback);
 	void getNextEvent(Account user, int month, int day, int year,
 			AsyncCallback<Event> callback);
 	void findEvent(int eventID, AsyncCallback<Event> callback);

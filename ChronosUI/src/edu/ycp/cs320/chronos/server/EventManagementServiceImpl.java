@@ -41,13 +41,13 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 		return DatabaseUtil.instance().isDupEvent(eventName);
 	}
 
-	@Override
+	
 	/**
 	 * Takes the given eventID finds it in the database
 	 * and deletes its from the database
 	 */
-	public void removeEvent(String eventName) {
-		DatabaseUtil.instance().removeEvent(eventName);
+	public void removeEvent(Event event) {
+		DatabaseUtil.instance().removeEvent(event);
 	}
 
 	@Override
@@ -131,5 +131,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	public String getDetails(int eventID) {
 		return DatabaseUtil.instance().getDetails(eventID);
 	}
+
+
 
 }
