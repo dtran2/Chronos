@@ -21,8 +21,8 @@ public class FakeDatabase implements IDatabase {
 	*/
 	private int accountIDCount;	//Handles current account id when making a new account
 	private int eventIDCount;	//Handles current event id when making a new Event
-	private ArrayList<Account> accountList;
-	private ArrayList<Event> eventList;
+	private ArrayList<Account> accountList;	//List of accounts
+	private ArrayList<Event> eventList;	//List of events
 	private ArrayList<EventInvitation> eventInvitationList;
 	
 	public FakeDatabase() {
@@ -147,11 +147,11 @@ public class FakeDatabase implements IDatabase {
 	}
 	
 	/**
-	 * Removes specified event from "nameToEventMap"
+	 * Removes specified event from the database
 	 * @param eventName
 	 */
-	public void removeEvent(String eventName){
-		nameToEventMap.remove(eventName);
+	public void removeEvent(Event event){
+		eventList.remove(event);
 	}
 	
 	/**
@@ -224,13 +224,18 @@ public class FakeDatabase implements IDatabase {
 		}
 	}
 	
+	/**
+	 * Takes the username (string) and checks to see if
+	 * it already exists within the database
+	 */
 	public boolean isDupAccount(String account){
-		if(!accountMap.containsKey(account)){
-			return false;
+		int counter = 0;
+		for(int i = 0; i < accountList.size(); i++){
+			if(accountList.get(i).getUserName().equals(account)){
+				return true;
+			}
 		}
-		else{ 
-			return true;
-		}
+		return false;
 	}
 	
 
