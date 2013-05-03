@@ -16,41 +16,26 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	private static final long serialVersionUID = 1L;
 	
 	
-	@Override
 	/**
 	 * Takes the given eventID, month, day, year,
 	 * startTime, endTime, and details
 	 * to create a new event in the database
 	 * 
 	 */
+	@Override
 	public void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime,
 			int endTime, String details){
 		DatabaseUtil.instance().createEvent(ownerID, eventName, month, day, year, startTime,
 				endTime, details);
-	}
-
-	@Override
-	/**
-	 * Takes the given eventID and checks if
-	 * there is already another event with the 
-	 * same name
-	 * Returns true if there is already account with that name
-	 * Returns false if not
-	 */
-	public Boolean isDupEvent(String eventName) {
-		return DatabaseUtil.instance().isDupEvent(eventName);
-	}
-
-	
+	}	
 	/**
 	 * Takes the given eventID finds it in the database
 	 * and deletes its from the database
 	 */
+	@Override
 	public void removeEvent(Event event) {
 		DatabaseUtil.instance().removeEvent(event);
 	}
-
-	@Override
 	/**
 	 * Takes the given user, month, day, and year and
 	 * finds the next event after the current one
@@ -60,6 +45,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * @param year	The current year
 	 * Returns the event that will come next
 	 */
+	@Override
 	public Event getNextEvent(Account user, int month, int day, int year) {
 		return DatabaseUtil.instance().getNextEvent(user, month, day, year);
 	}
@@ -131,7 +117,5 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	public String getDetails(int eventID) {
 		return DatabaseUtil.instance().getDetails(eventID);
 	}
-
-
 
 }

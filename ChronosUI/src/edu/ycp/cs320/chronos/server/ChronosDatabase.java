@@ -3,16 +3,14 @@ package edu.ycp.cs320.chronos.server;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+//import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
-import edu.ycp.cs320.chronos.shared.IDatabase;
 
 //import edu.ycp.cs320.pizza.server.DerbyDatabase.DatabaseConnection;
 
-/*
 public class ChronosDatabase implements IDatabase {
 	//set the database to the FakeDatabase.java
 	private static final String DATABASE = "../Chronos/edu/ycp/cs320/modelClasses/FakeDatabase.java";
@@ -20,7 +18,7 @@ public class ChronosDatabase implements IDatabase {
 
 	static {
 		try {
-			//add this to your classpaths
+			//add this to your classpath
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (Exception e) {
 			throw new RuntimeException("Could not load Derby JDBC driver");
@@ -101,68 +99,6 @@ public class ChronosDatabase implements IDatabase {
 			}
 		});
 	}
-	@Override
-	public Event findEvent(String eventName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public int getMonth(String eventName) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public int getDay(String eventName) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public int getYear(String eventName) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public int getStartTime(String eventName) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public int getEndTime(String eventName) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public String getDetails(String eventName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void createAccount(String usrName, String password, String email) {
-		// TODO Auto-generated method stub
-
-	}
-
-
-	@Override
-	public boolean verifyAccount(String usrName, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 
 	@Override
 	public Event getNextEvent(Account user, int month, int day, int year) {
@@ -171,28 +107,82 @@ public class ChronosDatabase implements IDatabase {
 	}
 
 	@Override
-	public void createEvent(String eventName, int month, int day, int year,
-			int startTime, int endTime, String details) {
+	public Event findEvent(int eventID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getMonth(int eventID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDay(int eventID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getYear(int eventID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getStartTime(int eventID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getEndTime(int eventID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void createEvent(int ownerID, String eventName, int month, int day,
+			int year, int startTime, int endTime, String details) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public boolean isDupEvent(String eventName) {
+	public String getDetails(int eventID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeEvent(Event event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createAccount(String usr, String password, String email) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeAccount(int accountID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Account getAccount(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean verifyAccount(String usr, String password) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public void removeEvent(String eventName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeAccount(String account) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -200,5 +190,4 @@ public class ChronosDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-}*/
+}

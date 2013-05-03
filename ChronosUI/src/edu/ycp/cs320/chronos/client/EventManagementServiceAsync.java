@@ -8,7 +8,6 @@ import edu.ycp.cs320.chronos.shared.Event;
 public interface EventManagementServiceAsync {
 	void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime,
 			int endTime, String details, AsyncCallback<Void> callback);
-	void isDupEvent(String eventName, AsyncCallback<Boolean> callback);
 	void removeEvent(Event event, AsyncCallback<Void> callback);
 	void getNextEvent(Account user, int month, int day, int year,
 			AsyncCallback<Event> callback);

@@ -1,7 +1,6 @@
 package edu.ycp.cs320.chronos.server;
 
-import edu.ycp.cs320.chronos.shared.IDatabase;
-
+import edu.ycp.cs320.chronos.server.FakeDatabase;
 public class DatabaseUtil {
 
 	private static final IDatabase Instance = new FakeDatabase();

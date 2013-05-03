@@ -18,11 +18,8 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * Takes the given username and password
 	 * Returns true if the account exists and the username and password match
 	 */
-	public boolean verifyAccount(String username, String password) {
-		if(username != null && password != null){
-			return DatabaseUtil.instance().verifyAccount(username, password);
-		}
-		return false;
+	public boolean verifyAccount(String username, String password){
+		return DatabaseUtil.instance().verifyAccount(username, password);	
 	}
 	
 	/**
@@ -33,7 +30,6 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * 					account information using the 
 	 * @param email		The email the user would like to link with the account.
 	 */
-	
 	public void createAccount(String usr, String password, String email){
 		System.out.println("creating account: usr=" + usr + ", pass=" + password + ", email=" + email);
 		DatabaseUtil.instance().createAccount(usr, password, email);

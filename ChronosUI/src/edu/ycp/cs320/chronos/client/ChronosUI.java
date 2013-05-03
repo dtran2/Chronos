@@ -6,13 +6,12 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
-
 public class ChronosUI implements EntryPoint{
 
 	public static ChronosUI instance;
 	private static IsWidget currentView;
 	
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	@Override
 	
 	public void onModuleLoad() {

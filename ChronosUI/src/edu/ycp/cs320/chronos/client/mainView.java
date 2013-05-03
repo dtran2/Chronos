@@ -5,15 +5,11 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.TextBox;
-
-import edu.ycp.cs320.chronos.shared.Account;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
 public class mainView extends Composite{
-	private String nxtEvent;
+	//private String nxtEvent;
 	public mainView(){
 		final LayoutPanel mainPanel = new LayoutPanel();
 		

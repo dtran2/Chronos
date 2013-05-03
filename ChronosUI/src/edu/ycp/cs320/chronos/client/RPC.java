@@ -3,8 +3,12 @@ package edu.ycp.cs320.chronos.client;
 import com.google.gwt.core.client.GWT;
 
 public class RPC {
+	
+	
 	public static final AccountManagementServiceAsync accountManagementService =
-			GWT.create(AccountManagementService.class);
+			(AccountManagementServiceAsync)GWT.create(AccountManagementService.class);
 	public static final EventManagementServiceAsync eventManagementService =
-			GWT.create(EventManagementService.class);
+			(EventManagementServiceAsync)GWT.create(EventManagementService.class);
+			
 }
+

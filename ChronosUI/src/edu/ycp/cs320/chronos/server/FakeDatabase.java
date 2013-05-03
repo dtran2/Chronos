@@ -1,17 +1,15 @@
 package edu.ycp.cs320.chronos.server;
 
-import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.Map;
 
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
-import edu.ycp.cs320.chronos.shared.EventInvitation;
-import edu.ycp.cs320.chronos.shared.IDatabase;
+//import edu.ycp.cs320.chronos.shared.EventInvitation;
 
 public class FakeDatabase implements IDatabase {
-	private Map<String, Event> nameToEventMap;
+	//private Map<String, Event> nameToEventMap;
 	private Map<String, Account> accountMap;
 	//Use Maps to organize events to accounts
 	
@@ -23,7 +21,7 @@ public class FakeDatabase implements IDatabase {
 	private int eventIDCount;	//Handles current event id when making a new Event
 	private ArrayList<Account> accountList;	//List of accounts
 	private ArrayList<Event> eventList;	//List of events
-	private ArrayList<EventInvitation> eventInvitationList;
+	//private ArrayList<EventInvitation> eventInvitationList;
 	
 	public FakeDatabase() {
 		accountIDCount = 0;
@@ -50,7 +48,6 @@ public class FakeDatabase implements IDatabase {
 	 *            Note: Replace current method of doing this with recursion
 	 */
 	public Event getNextEvent(Account user, int month, int day, int year){
-		String usr = user.getUserName();
 		ArrayList<Event> events = user.getTodaysEvents(month, day, year);
 		Event nextEvent = events.get(0); //Set the "nextEvent] to the first Event in the arrayList "events"
 		//Sift through the array list to find the next coming event
@@ -147,18 +144,7 @@ public class FakeDatabase implements IDatabase {
 		Event e = new Event(eventIDCount, ownerID, month, day, year, startTime, endTime, details, eventName);
 		eventIDCount++;
 		eventList.add(e);
-	}
-	/*The below function may be useless with newly organized database
-	 */
-	public boolean isDupEvent(String eventName){
-		if(!nameToEventMap.containsKey(eventName)){
-			return false;
-		}
-		else{
-			return true;
-		}
-	}
-	
+	}	
 	/**
 	 * Removes specified event from the database
 	 * @param eventName
@@ -224,7 +210,20 @@ public class FakeDatabase implements IDatabase {
 	 * @return true if password matches with the account; false otherwise
 	 */
 	public boolean verifyAccount(String usr, String password){
-		if(accountList.contains(getAccount(usr))){
+		/*
+		try{
+			Account account = getAccount(usr);
+			if(accountList.contains(account)){	//Account found in database
+				return account.getPassword().equals(password);	//Password verification				
+			}			
+		}
+		catch (ExceptionInInitializerError e){
+			System.out.println(e.getMessage());
+		}
+		return false;
+		*/
+		
+		if(accountList.contains(getAccount(usr))){	//Account exists in the database
 			System.out.println("Account exists: " + usr);
 			Account account = getAccount(usr);
 			if(account.getPassword().equals(password)){
@@ -238,7 +237,8 @@ public class FakeDatabase implements IDatabase {
 		System.out.println("No such account: " + usr);
 		return false;
 		
-	}
+	}	
+	
 	
 	/**
 	 * Takes the username (string) and checks to see if
@@ -252,7 +252,5 @@ public class FakeDatabase implements IDatabase {
 		}
 		return false;
 	}
-
-	
 
 }

@@ -9,7 +9,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.KeyboardListener;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -70,7 +69,7 @@ public class LoginView extends Composite {
 		
 		// Location of username textbox
 		userName = new TextBox();
-		userName.setTextAlignment(TextBoxBase.ALIGN_CENTER);
+		//userName.setTextAlignment(TextBoxBase.ALIGN_CENTER);
 		userName.setText("Enter User Name");
 		loginPanel.add(userName);
 		loginPanel.setWidgetLeftWidth(userName, 177.0, Unit.PX, 170.0, Unit.PX);

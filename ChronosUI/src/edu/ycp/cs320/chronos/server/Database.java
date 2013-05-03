@@ -1,5 +1,5 @@
 package edu.ycp.cs320.chronos.server;
-
+/*
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +11,7 @@ import com.sun.corba.se.pept.transport.Connection;
 
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
-import edu.ycp.cs320.chronos.shared.IDatabase;
-
+*/
 public class Database /*implements IDatabase*/ {
 	
 //	private Map<String, Account> accountMap;
