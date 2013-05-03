@@ -19,7 +19,10 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * Returns true if the account exists and the username and password match
 	 */
 	public boolean verifyAccount(String username, String password) {
-		return DatabaseUtil.instance().verifyAccount(username, password);
+		if(username != null && password != null){
+			return DatabaseUtil.instance().verifyAccount(username, password);
+		}
+		return false;
 	}
 	
 	/**
@@ -43,6 +46,9 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 		DatabaseUtil.instance().removeAccount(accountID);	
 	}
 	
+	public int getUserID(String username){
+		return DatabaseUtil.instance().getAccount(username).getID();
+	}
 	
 	
 

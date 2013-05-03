@@ -1,7 +1,6 @@
 package edu.ycp.cs320.chronos.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-
 public interface AccountManagementServiceAsync {
 
 	void verifyAccount(String username, String password,
@@ -11,5 +10,7 @@ public interface AccountManagementServiceAsync {
 			AsyncCallback<Void> callback);
 
 	void removeAccount(int accountID, AsyncCallback<Void> callback);
+
+	void getUserID(String username, AsyncCallback<Integer> callback);
 
 }

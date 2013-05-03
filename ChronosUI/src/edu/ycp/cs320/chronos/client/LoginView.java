@@ -37,13 +37,15 @@ public class LoginView extends Composite {
 			
 			// Handle if user clicks button
 			loginButton.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
+				public void onClick(ClickEvent event){
+					//GWT.log(RPC.accountManagementService.)
 					RPC.accountManagementService.verifyAccount(userName.getText(), password.getText(), new AsyncCallback<Boolean>(){
 						@Override
 						public void onSuccess(Boolean result) {
 							if (result) {
 								// successful login
 								//Update view
+								
 								ChronosUI.setCurrentView(new mainView()); 
 								
 							} else {
@@ -59,7 +61,7 @@ public class LoginView extends Composite {
 						
 						@Override
 						public void onFailure(Throwable caught) {
-							GWT.log("RPC call to verify account failed: ", caught);
+							GWT.log("RPC call to verify account failed: " + caught.getMessage());
 						}
 					});
 				}

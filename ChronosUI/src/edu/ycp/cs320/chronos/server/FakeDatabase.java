@@ -28,8 +28,7 @@ public class FakeDatabase implements IDatabase {
 	public FakeDatabase() {
 		accountIDCount = 0;
 		eventList = new ArrayList<Event>();
-		accountList = new ArrayList<Account>();
-		
+		accountList = new ArrayList<Account>();		
 		//Create test accounts
 		createAccount("Spongebob", "Squarepants", "x@y.z");
 		createAccount("Patric", "Star", "a@b.c");
@@ -37,10 +36,8 @@ public class FakeDatabase implements IDatabase {
 		//Create test events to work with
 		createEvent(getAccount("Spongebob").getID(), "Christmas", 12, 25, 2013, 1200, 2400, "Christmas");
 		createEvent(getAccount("Spongebob").getID(), "New Years", 1, 1, 2014, 1200, 2400, "New Years day!");
-		createEvent(getAccount("Spongebob").getID(), "Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");
-		
+		createEvent(getAccount("Spongebob").getID(), "Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");		
 	}
-
 	//@Override
 	/**
 	 * Methods for handling event info.
@@ -64,8 +61,7 @@ public class FakeDatabase implements IDatabase {
 			}
 		}
 		return nextEvent;
-	}
-	
+	}	
 	
 	/**
 	 * Uses the given account id (UserID) to sift through the database's
@@ -204,6 +200,9 @@ public class FakeDatabase implements IDatabase {
 			
 		}
 	}
+	public int getUserID(String username){
+		return getAccount(username).getID();		
+	}
 	/**
 	 * Uses the given String username to find
 	 * the specified account
@@ -217,6 +216,7 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
+	
 	/**
 	 * Method for verifying account username and password.
 	 * @param usr
@@ -224,9 +224,9 @@ public class FakeDatabase implements IDatabase {
 	 * @return true if password matches with the account; false otherwise
 	 */
 	public boolean verifyAccount(String usr, String password){
-		if(accountList.contains(usr)){	//User exists within the database
+		if(accountList.contains(getAccount(usr))){
 			System.out.println("Account exists: " + usr);
-			Account account = accountList.get(accountList.indexOf(usr));
+			Account account = getAccount(usr);
 			if(account.getPassword().equals(password)){
 				return true;				
 			}
@@ -235,10 +235,9 @@ public class FakeDatabase implements IDatabase {
 				return false;
 			}
 		}
-		else{
-			System.out.println("No such account: " + usr);
-			return false;
-		}
+		System.out.println("No such account: " + usr);
+		return false;
+		
 	}
 	
 	/**
