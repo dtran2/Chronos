@@ -52,8 +52,6 @@ public class mainView extends Composite{
 		mainPanel.add(createEventPanel);
 		mainPanel.setWidgetLeftWidth(createEventPanel, 87.0, Unit.PX, 481.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(createEventPanel, 73.0, Unit.PX, 328.0, Unit.PX);
-		
-		
 		initWidget(mainPanel);
 	}
 }
