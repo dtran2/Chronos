@@ -37,17 +37,14 @@ public class LoginView extends Composite {
 			// Handle if user clicks button
 			loginButton.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event){
-					//GWT.log(RPC.accountManagementService.)
 					RPC.accountManagementService.verifyAccount(userName.getText(), password.getText(), new AsyncCallback<Boolean>(){
 						@Override
 						public void onSuccess(Boolean result) {
 							if (result) {
 								// successful login
-								//Update view
-								
-								ChronosUI.setCurrentView(new mainView()); 
-								
-							} else {
+								ChronosUI.setCurrentView(new mainView());								
+							} 
+							else{
 								// unsuccessful login
 								//Display an error message box under the login button 
 								Label error = new Label("The entered username and password did not match.");

@@ -11,7 +11,6 @@ import edu.ycp.cs320.chronos.modelClasses.Event;
 */
 @RemoteServiceRelativePath("eventManagement")
 public interface EventManagementService extends RemoteService {
-
 	public void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime,
 			int endTime, String details);
 	public void removeEvent(Event event);

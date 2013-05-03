@@ -3,7 +3,6 @@ package edu.ycp.cs320.chronos.server;
 import java.util.ArrayList;
 //import java.util.HashMap;
 import java.util.Map;
-
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
 //import edu.ycp.cs320.chronos.shared.EventInvitation;
@@ -36,7 +35,7 @@ public class FakeDatabase implements IDatabase {
 		createEvent(getAccount("Spongebob").getID(), "New Years", 1, 1, 2014, 1200, 2400, "New Years day!");
 		createEvent(getAccount("Spongebob").getID(), "Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");		
 	}
-	//@Override
+	@Override
 	/**
 	 * Methods for handling event info.
 	 * 
@@ -171,7 +170,7 @@ public class FakeDatabase implements IDatabase {
 		Account a = new Account(accountIDCount, usr, password, email);
 		accountIDCount++;
 		System.out.println("Account password: " + a.getPassword());
-		accountMap.put(usr, a);	
+		accountList.add(a);
 	}
 	/**
 	 * Uses the given accountID
