@@ -1,7 +1,5 @@
 package edu.ycp.cs320.chronos.shared;
 
-import java.util.ArrayList;
-
 public interface IDatabase {
 
 	public Event getNextEvent(Account user, int month, int day, int year);
@@ -21,9 +19,6 @@ public interface IDatabase {
 	public Account getAccount(String username);
 	public boolean verifyAccount(String usr, String password);
 	public boolean isDupAccount(String account);
-	
-	
+
+
 }
-
-
-
