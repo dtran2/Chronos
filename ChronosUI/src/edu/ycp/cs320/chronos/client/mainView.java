@@ -1,5 +1,8 @@
 package edu.ycp.cs320.chronos.client;
 
+import java.sql.Date;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Button;
@@ -8,8 +11,10 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
+import com.google.gwt.i18n.client.TimeZone;		//Used to get the current date and time 
+
 public class mainView extends Composite{
-	//private String nxtEvent;
+	
 	public mainView(){
 		final LayoutPanel mainPanel = new LayoutPanel();
 		
@@ -45,6 +50,7 @@ public class mainView extends Composite{
 		
 		
 		
+		
 		//Layout panel for creating a new event
 		//This layout panel is intended to pop up on top of the mainView
 		//Must add this part to the onClickhandler under Create Event
@@ -53,5 +59,27 @@ public class mainView extends Composite{
 		mainPanel.setWidgetLeftWidth(createEventPanel, 87.0, Unit.PX, 481.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(createEventPanel, 73.0, Unit.PX, 328.0, Unit.PX);
 		initWidget(mainPanel);
+	}
+	
+	private String getNextEvent(){
+		String nextEvent = "Not Available";
+		Date date;
+		RPC.eventManagementService.getNextEvent(ChronosUI.user, date.getMonth(), date.getDate(), date.getYear(), new AsyncCallback<Boolean>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			
+		});
+		return nextEvent;	
 	}
 }

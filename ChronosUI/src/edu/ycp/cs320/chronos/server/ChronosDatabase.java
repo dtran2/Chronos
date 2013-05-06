@@ -101,7 +101,7 @@ public class ChronosDatabase implements IDatabase {
 	}
 
 	@Override
-	public Event getNextEvent(Account user, int month, int day, int year) {
+	public Event getNextEvent(String username, int month, int day, int year) {
 		// TODO Auto-generated method stub
 		return null;
 	}

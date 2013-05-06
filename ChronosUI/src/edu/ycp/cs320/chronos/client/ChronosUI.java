@@ -10,7 +10,7 @@ public class ChronosUI implements EntryPoint{
 
 	public static ChronosUI instance;
 	private static IsWidget currentView;
-	
+	public static String user;
 	//@SuppressWarnings("deprecation")
 	@Override
 	
@@ -18,7 +18,7 @@ public class ChronosUI implements EntryPoint{
 		GWT.log("Reached entry point!");
 		
 		RootLayoutPanel.get().setStyleName("makeitred", true);
-		
+		user = "Not found";
 		instance = this;
 		
 		setCurrentView(new LoginView());
@@ -36,7 +36,9 @@ public class ChronosUI implements EntryPoint{
 		RootLayoutPanel.get().setWidgetLeftRight(cv, 10.0, Unit.PX, 10.0, Unit.PX);
 		GWT.log("Set current view: " + cv.getClass().getName());
 	}
-	
+	public static void setUser(String newUser){
+		user = newUser;	
+	}
 }
 
 

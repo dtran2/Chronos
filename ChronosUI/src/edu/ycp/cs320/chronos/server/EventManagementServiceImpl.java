@@ -45,9 +45,9 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * @param year	The current year
 	 * Returns the event that will come next
 	 */
-	@Override
-	public Event getNextEvent(Account user, int month, int day, int year) {
-		return DatabaseUtil.instance().getNextEvent(user, month, day, year);
+	//@Override
+	public Event getNextEvent(String username, int month, int day, int year) {
+		return DatabaseUtil.instance().getNextEvent(username, month, day, year);
 	}
 
 	@Override

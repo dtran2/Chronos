@@ -4,8 +4,6 @@ import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
 
 public interface IDatabase {
-
-	public Event getNextEvent(Account user, int month, int day, int year);
 	public Event findEvent(int eventID);
 	public int getMonth(int eventID);
 	public int getDay(int eventID);
@@ -21,6 +19,7 @@ public interface IDatabase {
 	public Account getAccount(String username);
 	public boolean verifyAccount(String usr, String password);
 	public boolean isDupAccount(String account);
+	public Event getNextEvent(String username, int month, int day, int year);
 	
 
 }

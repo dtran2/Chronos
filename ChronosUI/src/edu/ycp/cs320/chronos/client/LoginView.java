@@ -42,6 +42,7 @@ public class LoginView extends Composite {
 						public void onSuccess(Boolean result) {
 							if (result) {
 								// successful login
+								ChronosUI.setUser(userName.getText());
 								ChronosUI.setCurrentView(new mainView());								
 							} 
 							else{

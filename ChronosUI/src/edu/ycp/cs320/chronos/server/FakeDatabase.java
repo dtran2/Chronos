@@ -1,5 +1,7 @@
 package edu.ycp.cs320.chronos.server;
 
+	
+
 import java.util.ArrayList;
 //import java.util.HashMap;
 import java.util.Map;
@@ -11,11 +13,6 @@ public class FakeDatabase implements IDatabase {
 	//private Map<String, Event> nameToEventMap;
 	private Map<String, Account> accountMap;
 	//Use Maps to organize events to accounts
-	
-	/*Each key(event) will have the value of which user is the author
-	 * Every time an event is created, this Hashmap MUST be updated to insure
-	 * proper data retrieval from the FakeDatabase		
-	*/
 	private int accountIDCount;	//Handles current account id when making a new account
 	private int eventIDCount;	//Handles current event id when making a new Event
 	private ArrayList<Account> accountList;	//List of accounts
@@ -42,18 +39,20 @@ public class FakeDatabase implements IDatabase {
 	 */
 
 	/**
-	 * Sifts through an arraylist of today's events and returns the Event that will occur next
+	 * Sifts through a list of today's events and returns the Event that will occur next
 	 * 
 	 *            Note: Replace current method of doing this with recursion
 	 */
-	public Event getNextEvent(Account user, int month, int day, int year){
-		ArrayList<Event> events = user.getTodaysEvents(month, day, year);
-		Event nextEvent = events.get(0); //Set the "nextEvent] to the first Event in the arrayList "events"
+	public Event getNextEvent(String username, int month, int day, int year){
+		Account user = getAccount(username);
+		ArrayList<Event> today = new ArrayList<Event>();
+		today = getTodaysEvents(user.getID(), month, day, year);
+		Event nextEvent = today.get(0); //Set the "nextEvent" to the first Event in the arrayList "events"
 		//Sift through the array list to find the next coming event
-		for(int i = 1; i < events.size(); i++){
+		for(int i = 1; i < today.size(); i++){
 			//if the current "nextEvent"'s start time is greater, it is not the next event 
-			if(nextEvent.getStartTime() > events.get(i).getStartTime()){
-				nextEvent = events.get(i);
+			if(nextEvent.getStartTime() > today.get(i).getStartTime()){
+				nextEvent = today.get(i);
 			}
 		}
 		return nextEvent;
