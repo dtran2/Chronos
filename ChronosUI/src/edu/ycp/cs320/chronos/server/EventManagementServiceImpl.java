@@ -116,6 +116,9 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 */
 	public String getDetails(int eventID) {
 		return DatabaseUtil.instance().getDetails(eventID);
+	}	
+	public String nextEventString(String username, int month, int day, int year) {
+		return DatabaseUtil.instance().nextEventString(username, month, day, year);
 	}
 
 }

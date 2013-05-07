@@ -12,7 +12,6 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 
-import edu.ycp.cs320.chronos.shared.IPublisher;
 
 public class SignUpView extends Composite {
 	private TextBox userNamesignup;
@@ -96,11 +95,4 @@ public class SignUpView extends Composite {
 				
 	}
 
-	public void eventOccured(Object key, IPublisher publisher, Object hint){
-		update();
-	}	
-	
-	public void update(){
-			
-	}
 }

@@ -1,23 +1,30 @@
 package edu.ycp.cs320.chronos.client;
 
-import java.sql.Date;
 
+import java.sql.Date;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Button;
+//import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
 import com.google.gwt.i18n.client.TimeZone;		//Used to get the current date and time 
+import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.i18n.client.DateTimeFormat;
+
+import edu.ycp.cs320.chronos.shared.Event;
+import com.google.gwt.user.client.ui.DateLabel;
 
 public class mainView extends Composite{
 	
 	public mainView(){
+		//Date date = new Date(eventsToSink);
 		final LayoutPanel mainPanel = new LayoutPanel();
-		
 		//Sign out button: signs the user out upon click
 		Button signOut = new Button("Sign out");
 		signOut.addClickHandler(new ClickHandler() {
@@ -41,45 +48,31 @@ public class mainView extends Composite{
 		mainPanel.setWidgetLeftWidth(btnCalendar, 0.0, Unit.PX, 81.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(btnCalendar, 123.0, Unit.PX, 30.0, Unit.PX);
 		
-		//Displays the user's upcoming event information
+		DateLabel dateLabel = new DateLabel();
+		mainPanel.add(dateLabel);
+		mainPanel.setWidgetLeftWidth(dateLabel, 580.0, Unit.PX, 64.0, Unit.PX);
+		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
 		
-		Label nextEvent = new Label();
-		mainPanel.add(nextEvent);
-		mainPanel.setWidgetLeftWidth(nextEvent, 113.0, Unit.PX, 372.0, Unit.PX);
-		mainPanel.setWidgetTopHeight(nextEvent, 50.0, Unit.PX, 57.0, Unit.PX);
-		
-		
-		
-		
-		//Layout panel for creating a new event
-		//This layout panel is intended to pop up on top of the mainView
-		//Must add this part to the onClickhandler under Create Event
-		LayoutPanel createEventPanel = new LayoutPanel();
-		mainPanel.add(createEventPanel);
-		mainPanel.setWidgetLeftWidth(createEventPanel, 87.0, Unit.PX, 481.0, Unit.PX);
-		mainPanel.setWidgetTopHeight(createEventPanel, 73.0, Unit.PX, 328.0, Unit.PX);
-		initWidget(mainPanel);
-	}
-	
-	private String getNextEvent(){
-		String nextEvent = "Not Available";
-		Date date;
-		RPC.eventManagementService.getNextEvent(ChronosUI.user, date.getMonth(), date.getDate(), date.getYear(), new AsyncCallback<Boolean>(){
+		//Displays the user's next event if retrieval was a success
+		RPC.eventManagementService.nextEventString(ChronosUI.user, date.getMonth(), date.getDate(), date.getYear(), new AsyncCallback<String>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
+				GWT.log("Account's next event retrieval failed: " + caught.getMessage());				
 			}
 
 			@Override
-			public void onSuccess(Boolean result) {
-				// TODO Auto-generated method stub
-				
+			public void onSuccess(String result) {
+				Label lblNextevent = new Label(result);
+				mainPanel.add(lblNextevent);
+				mainPanel.setWidgetLeftWidth(lblNextevent, 144.0, Unit.PX, 320.0, Unit.PX);
+				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);				
 			}
+
 			
 			
-		});
-		return nextEvent;	
+		});		
+		
+		
 	}
 }

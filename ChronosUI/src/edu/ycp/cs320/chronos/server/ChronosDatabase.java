@@ -190,4 +190,10 @@ public class ChronosDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String nextEventString(String username, int month, int day, int year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

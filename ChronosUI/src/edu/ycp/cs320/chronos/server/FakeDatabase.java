@@ -56,8 +56,18 @@ public class FakeDatabase implements IDatabase {
 			}
 		}
 		return nextEvent;
-	}	
-	
+	}
+	/**
+	 * Returns the details of the next event of the given account
+	 * @param username
+	 * @param month
+	 * @param day
+	 * @param year
+	 * @return
+	 */
+	public String nextEventString(String username, int month, int day, int year){
+		return getNextEvent(username, month, day, year).getDetails();		
+	}
 	/**
 	 * Uses the given account id (UserID) to sift through the database's
 	 * arrayList of events and collects all user's events in an arrayList
