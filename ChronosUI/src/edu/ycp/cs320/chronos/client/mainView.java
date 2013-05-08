@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.DateLabel;
 public class mainView extends Composite{
 	
 	public mainView(){
-		//Date date = new Date(eventsToSink);
+		Date date; 
 		final LayoutPanel mainPanel = new LayoutPanel();
 		//Sign out button: signs the user out upon click
 		Button signOut = new Button("Sign out");
