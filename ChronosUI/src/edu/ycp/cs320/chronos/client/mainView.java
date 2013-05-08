@@ -13,9 +13,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
-import com.google.gwt.i18n.client.TimeZone;		//Used to get the current date and time 
-import com.google.gwt.i18n.client.NumberFormat;
-import com.google.gwt.i18n.client.DateTimeFormat;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import edu.ycp.cs320.chronos.shared.Event;
 import com.google.gwt.user.client.ui.DateLabel;
@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.DateLabel;
 public class mainView extends Composite{
 	
 	public mainView(){
-		Date date; 
+		
 		final LayoutPanel mainPanel = new LayoutPanel();
 		//Sign out button: signs the user out upon click
 		Button signOut = new Button("Sign out");
@@ -54,7 +54,13 @@ public class mainView extends Composite{
 		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
 		
 		//Displays the user's next event if retrieval was a success
-		RPC.eventManagementService.nextEventString(ChronosUI.user, date.getMonth(), date.getDate(), date.getYear(), new AsyncCallback<String>(){
+		Calendar cal = Calendar.getInstance();
+		String dateFormat = new SimpleDateFormat("MMddyyyyHHmmss").format(Calendar.getInstance().getTime());
+		int month = Integer.parseInt(dateFormat.substring(0, 2));
+		int day = Integer.parseInt(dateFormat.substring(2, 4));
+		int year = Integer.parseInt(dateFormat.substring(4, 8));
+		
+		RPC.eventManagementService.nextEventString(ChronosUI.user, month, day, year, new AsyncCallback<String>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -67,9 +73,7 @@ public class mainView extends Composite{
 				mainPanel.add(lblNextevent);
 				mainPanel.setWidgetLeftWidth(lblNextevent, 144.0, Unit.PX, 320.0, Unit.PX);
 				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);				
-			}
-
-			
+			}			
 			
 		});		
 		
