@@ -66,17 +66,13 @@ public class mainView extends Composite{
 			public void onFailure(Throwable caught) {
 				GWT.log("Account's next event retrieval failed: " + caught.getMessage());				
 			}
-
 			@Override
 			public void onSuccess(String result) {
 				Label lblNextevent = new Label(result);
 				mainPanel.add(lblNextevent);
 				mainPanel.setWidgetLeftWidth(lblNextevent, 144.0, Unit.PX, 320.0, Unit.PX);
 				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);				
-			}			
-			
-		});		
-		
-		
+			}
+		});
 	}
 }

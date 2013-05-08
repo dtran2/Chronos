@@ -19,6 +19,7 @@ public interface IDatabase {
 	public Account getAccount(String username);
 	public boolean verifyAccount(String usr, String password);
 	public boolean isDupAccount(String account);
-	public Event getNextEvent(String username, int month, int day, int year);
-	public String nextEventString(String username, int month, int day, int year);
+	public String nextEventString(String username, int month, int day, int year, int hour, int minutes);
+	Event getNextEvent(String username, int month, int day, int year, int hour,
+			int minutes);
 }

@@ -41,17 +41,23 @@ public class FakeDatabase implements IDatabase {
 	/**
 	 * Sifts through a list of today's events and returns the Event that will occur next
 	 * 
-	 *            Note: Replace current method of doing this with recursion
+	 *            Note: nextEvent initialized to first element of today...this may cause problems if it has already occured.
 	 */
-	public Event getNextEvent(String username, int month, int day, int year){
+	public Event getNextEvent(String username, int month, int day, int year, int hour, int minutes){
 		Account user = getAccount(username);
 		ArrayList<Event> today = new ArrayList<Event>();
 		today = getTodaysEvents(user.getID(), month, day, year);
+		//Remove events that have already occured
+		for(int i = 0; i < today.size(); i++){
+			if(today.get(i).getStartTime() < (hour * 1000 + minutes)){
+				today.remove(i);
+			}
+		}
 		Event nextEvent = today.get(0); //Set the "nextEvent" to the first Event in the arrayList "events"
 		//Sift through the array list to find the next coming event
 		for(int i = 1; i < today.size(); i++){
 			//if the current "nextEvent"'s start time is greater, it is not the next event 
-			if(nextEvent.getStartTime() > today.get(i).getStartTime()){
+			if(nextEvent.getStartTime() > today.get(i).getStartTime() && today.get(i).getStartTime() > (hour*1000 + minutes)){
 				nextEvent = today.get(i);
 			}
 		}
@@ -65,8 +71,8 @@ public class FakeDatabase implements IDatabase {
 	 * @param year
 	 * @return
 	 */
-	public String nextEventString(String username, int month, int day, int year){
-		return getNextEvent(username, month, day, year).getDetails();		
+	public String nextEventString(String username, int month, int day, int year, int hour, int minutes){
+		return getNextEvent(username, month, day, year, hour, minutes).getDetails();		
 	}
 	/**
 	 * Uses the given account id (UserID) to sift through the database's
