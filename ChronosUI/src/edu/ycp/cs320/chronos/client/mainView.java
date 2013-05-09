@@ -13,10 +13,13 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.TimeZone;
+/*
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
+*/
 import edu.ycp.cs320.chronos.shared.Event;
 import com.google.gwt.user.client.ui.DateLabel;
 
@@ -54,12 +57,17 @@ public class mainView extends Composite{
 		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
 		
 		//Displays the user's next event if retrieval was a success
+		/*
 		Calendar cal = Calendar.getInstance();
 		String dateFormat = new SimpleDateFormat("MMddyyyyHHmmss").format(Calendar.getInstance().getTime());
 		int month = Integer.parseInt(dateFormat.substring(0, 2));
 		int day = Integer.parseInt(dateFormat.substring(2, 4));
 		int year = Integer.parseInt(dateFormat.substring(4, 8));
+		*/
 		
+		//Getting current date and time using gwt
+		DateTimeFormat dtf = new DateTimeFormat("yyyyMMddHHmmss");
+		Date date = new Date();
 		RPC.eventManagementService.nextEventString(ChronosUI.user, month, day, year, new AsyncCallback<String>(){
 
 			@Override
