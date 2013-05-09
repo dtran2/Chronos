@@ -2,6 +2,9 @@ package edu.ycp.cs320.chronos.client;
 
 
 import java.sql.Date;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -24,9 +27,9 @@ import edu.ycp.cs320.chronos.shared.Event;
 import com.google.gwt.user.client.ui.DateLabel;
 
 public class mainView extends Composite{
-	
+	private long time;
 	public mainView(){
-		
+		time = 0;
 		final LayoutPanel mainPanel = new LayoutPanel();
 		//Sign out button: signs the user out upon click
 		Button signOut = new Button("Sign out");
@@ -64,11 +67,14 @@ public class mainView extends Composite{
 		int day = Integer.parseInt(dateFormat.substring(2, 4));
 		int year = Integer.parseInt(dateFormat.substring(4, 8));
 		*/
-		
+		String date = convertTime(time);
+		int month = Integer.parseInt(date.substring(0, 2));
+		int day = Integer.parseInt(date.substring(2, 4));
+		int year = Integer.parseInt(date.substring(4, 8));
+		int hour = Integer.parseInt(date.substring(8, 10));
+		int min = Integer.parseInt(date.substring(10, 12));
 		//Getting current date and time using gwt
-		DateTimeFormat dtf = new DateTimeFormat("yyyyMMddHHmmss");
-		Date date = new Date();
-		RPC.eventManagementService.nextEventString(ChronosUI.user, month, day, year, new AsyncCallback<String>(){
+		RPC.eventManagementService.nextEventString(ChronosUI.user, month, day, year, hour, min, new AsyncCallback<String>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -82,5 +88,11 @@ public class mainView extends Composite{
 				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);				
 			}
 		});
+	}
+	
+	private String convertTime(long time){
+	    Date date = new Date(time);
+	    Format format = new SimpleDateFormat("MMddyyyyHHmm");
+	    return format.format(date).toString();
 	}
 }

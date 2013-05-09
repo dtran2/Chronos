@@ -101,7 +101,7 @@ public class ChronosDatabase implements IDatabase {
 	}
 
 	@Override
-	public Event getNextEvent(String username, int month, int day, int year) {
+	public Event getNextEvent(String username, int month, int day, int year, int hour, int minutes) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -192,7 +192,7 @@ public class ChronosDatabase implements IDatabase {
 	}
 
 	@Override
-	public String nextEventString(String username, int month, int day, int year) {
+	public String nextEventString(String username, int month, int day, int year, int hour, int minutes) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -46,8 +46,8 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Returns the event that will come next
 	 */
 	//@Override
-	public Event getNextEvent(String username, int month, int day, int year) {
-		return DatabaseUtil.instance().getNextEvent(username, month, day, year);
+	public Event getNextEvent(String username, int month, int day, int year, int hour, int minutes) {
+		return DatabaseUtil.instance().getNextEvent(username, month, day, year, hour, minutes);
 	}
 
 	@Override
@@ -117,8 +117,13 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	public String getDetails(int eventID) {
 		return DatabaseUtil.instance().getDetails(eventID);
 	}	
-	public String nextEventString(String username, int month, int day, int year) {
-		return DatabaseUtil.instance().nextEventString(username, month, day, year);
+	public String nextEventString(String username, int month, int day, int year, int hour, int minutes) {
+		return DatabaseUtil.instance().nextEventString(username, month, day, year, hour, minutes);
+	}
+	@Override
+	public Event getNextEvent(String user, int month, int day, int year) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

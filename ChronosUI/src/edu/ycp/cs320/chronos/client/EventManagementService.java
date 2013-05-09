@@ -22,5 +22,5 @@ public interface EventManagementService extends RemoteService {
 	public int getStartTime(int eventID);
 	public int getEndTime(int eventID);
 	public String getDetails(int eventID);
-	public String nextEventString(String username, int month, int day, int year);
+	public String nextEventString(String username, int month, int day, int year, int hour, int minutes);
 }

@@ -2,7 +2,6 @@ package edu.ycp.cs320.chronos.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
 
 public interface EventManagementServiceAsync {
@@ -18,6 +17,6 @@ public interface EventManagementServiceAsync {
 	void getStartTime(int eventID, AsyncCallback<Integer> callback);
 	void getEndTime(int eventID, AsyncCallback<Integer> callback);
 	void getDetails(int eventID, AsyncCallback<String> callback);
-	void nextEventString(String username, int month, int day, int year,
+	void nextEventString(String username, int month, int day, int year, int hour, int minutes,
 			AsyncCallback<String> callback);
 }
