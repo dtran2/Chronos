@@ -17,4 +17,5 @@ public interface EventManagementServiceAsync {
 	void getDetails(int eventID, AsyncCallback<String> callback);
 	void nextEventString(String username, int month, int day, int year, int hour, int minutes,
 			AsyncCallback<String> callback);
+	void getDayEvents(int userID, int month, int day, int year, AsyncCallback<String> callback);
 }

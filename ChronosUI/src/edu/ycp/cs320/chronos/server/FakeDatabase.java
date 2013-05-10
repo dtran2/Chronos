@@ -171,6 +171,32 @@ public class FakeDatabase implements IDatabase {
 		eventList.remove(event);
 	}
 	
+	public String getDayEvents(int userID, int month, int day, int year){
+		String dayEventsString = "";
+		ArrayList<Event> dayE = getTodaysEvents(userID, month, day, year);
+		ArrayList<Event> dayEvents = new ArrayList<Event>();
+		if(dayE != null){
+			Event lower = dayE.get(0);
+			//Order events sequentially
+			for(int i = 0; i < dayE.size(); i++){
+				for(int j = 0; j < dayE.size(); j++){
+					if(lower.getStartTime() >= dayE.get(j).getStartTime()){
+						lower = dayE.get(j);
+						dayE.remove(j);
+					}				
+				}
+			}
+			//Add the each title in a string
+			for(int i = 0; i < dayEvents.size(); i++){
+				dayEventsString += dayEvents.get(i).getName() + "\n"; 
+			}
+		}
+		else{
+			dayEventsString = "No events";			
+		}
+		return dayEventsString;
+	}
+	
 	/**
 	 * Methods for handling Account info.
 	 */
@@ -228,18 +254,6 @@ public class FakeDatabase implements IDatabase {
 	 * @return true if password matches with the account; false otherwise
 	 */
 	public boolean verifyAccount(String usr, String password){
-		/*
-		try{
-			Account account = getAccount(usr);
-			if(accountList.contains(account)){	//Account found in database
-				return account.getPassword().equals(password);	//Password verification				
-			}			
-		}
-		catch (ExceptionInInitializerError e){
-			System.out.println(e.getMessage());
-		}
-		return false;
-		*/
 		
 		if(accountList.contains(getAccount(usr))){	//Account exists in the database
 			System.out.println("Account exists: " + usr);

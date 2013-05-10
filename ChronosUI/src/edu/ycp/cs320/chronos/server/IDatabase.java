@@ -22,4 +22,5 @@ public interface IDatabase {
 	public String nextEventString(String username, int month, int day, int year, int hour, int minutes);
 	Event getNextEvent(String username, int month, int day, int year, int hour,
 			int minutes);
+	public String getDayEvents(int userID, int month, int day, int year);
 }

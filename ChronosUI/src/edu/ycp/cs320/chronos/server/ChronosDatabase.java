@@ -196,4 +196,10 @@ public class ChronosDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getDayEvents(int userID, int month, int day, int year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
