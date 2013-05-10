@@ -2,7 +2,6 @@ package edu.ycp.cs320.chronos.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import edu.ycp.cs320.chronos.client.EventManagementService;
-import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
 
 /**
@@ -119,11 +118,6 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	}	
 	public String nextEventString(String username, int month, int day, int year, int hour, int minutes) {
 		return DatabaseUtil.instance().nextEventString(username, month, day, year, hour, minutes);
-	}
-	@Override
-	public Event getNextEvent(String user, int month, int day, int year) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

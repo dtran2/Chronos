@@ -12,7 +12,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.Label;
 
 public class LoginView extends Composite {
@@ -20,8 +19,7 @@ public class LoginView extends Composite {
 	private TextBox userName;
 	private PasswordTextBox password;
 	public LoginView() {
-		final LayoutPanel loginPanel = new LayoutPanel();
-		
+		final LayoutPanel loginPanel = new LayoutPanel();		
 		loginPanel.setStyleName("chronos-loginPanel-bg", true);
 		
 		initWidget(loginPanel);

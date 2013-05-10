@@ -1,36 +1,25 @@
 package edu.ycp.cs320.chronos.client;
 
-
-import java.sql.Date;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.LayoutPanel;
-import com.google.gwt.user.client.ui.Button;
-//import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
-
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.i18n.client.TimeZone;
-/*
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-*/
-import edu.ycp.cs320.chronos.shared.Event;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DateLabel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.LayoutPanel;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class mainView extends Composite{
-	private long time;
+	//private long time;
 	public mainView(){
-		time = 0;
+		//time = 0;
 		final LayoutPanel mainPanel = new LayoutPanel();
+		initWidget(mainPanel);
 		//Sign out button: signs the user out upon click
 		Button signOut = new Button("Sign out");
 		signOut.addClickHandler(new ClickHandler() {
@@ -59,21 +48,12 @@ public class mainView extends Composite{
 		mainPanel.setWidgetLeftWidth(dateLabel, 580.0, Unit.PX, 64.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
 		
-		//Displays the user's next event if retrieval was a success
-		/*
-		Calendar cal = Calendar.getInstance();
-		String dateFormat = new SimpleDateFormat("MMddyyyyHHmmss").format(Calendar.getInstance().getTime());
-		int month = Integer.parseInt(dateFormat.substring(0, 2));
-		int day = Integer.parseInt(dateFormat.substring(2, 4));
-		int year = Integer.parseInt(dateFormat.substring(4, 8));
-		*/
-		String date = convertTime(time);
-		int month = Integer.parseInt(date.substring(0, 2));
-		int day = Integer.parseInt(date.substring(2, 4));
-		int year = Integer.parseInt(date.substring(4, 8));
-		int hour = Integer.parseInt(date.substring(8, 10));
-		int min = Integer.parseInt(date.substring(10, 12));
-		//Getting current date and time using gwt
+		SimpleDateFormat date = new SimpleDateFormat("MMddyyyyHHmm");
+		int month = Integer.parseInt(date.format(new Date()).substring(0, 2));
+		int day = Integer.parseInt(date.format(new Date()).substring(2, 4));
+		int year = Integer.parseInt(date.format(new Date()).substring(4, 8));
+		int hour = Integer.parseInt(date.format(new Date()).substring(8, 10));
+		int min = Integer.parseInt(date.format(new Date()).substring(10, 12));
 		RPC.eventManagementService.nextEventString(ChronosUI.user, month, day, year, hour, min, new AsyncCallback<String>(){
 
 			@Override
@@ -88,11 +68,5 @@ public class mainView extends Composite{
 				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);				
 			}
 		});
-	}
-	
-	private String convertTime(long time){
-	    Date date = new Date(time);
-	    Format format = new SimpleDateFormat("MMddyyyyHHmm");
-	    return format.format(date).toString();
 	}
 }

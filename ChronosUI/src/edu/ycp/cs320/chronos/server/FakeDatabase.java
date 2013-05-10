@@ -4,14 +4,14 @@ package edu.ycp.cs320.chronos.server;
 
 import java.util.ArrayList;
 //import java.util.HashMap;
-import java.util.Map;
+//import java.util.Map;
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
 //import edu.ycp.cs320.chronos.shared.EventInvitation;
 
 public class FakeDatabase implements IDatabase {
 	//private Map<String, Event> nameToEventMap;
-	private Map<String, Account> accountMap;
+	//private Map<String, Account> accountMap;
 	//Use Maps to organize events to accounts
 	private int accountIDCount;	//Handles current account id when making a new account
 	private int eventIDCount;	//Handles current event id when making a new Event
@@ -47,18 +47,22 @@ public class FakeDatabase implements IDatabase {
 		Account user = getAccount(username);
 		ArrayList<Event> today = new ArrayList<Event>();
 		today = getTodaysEvents(user.getID(), month, day, year);
+		Event nextEvent = new Event(eventIDCount, getUserID(username), month, day, year, 0, 0, "No events today", "default");
+		eventIDCount++;
 		//Remove events that have already occured
-		for(int i = 0; i < today.size(); i++){
-			if(today.get(i).getStartTime() < (hour * 1000 + minutes)){
-				today.remove(i);
+		if(!today.isEmpty()){
+			for(int i = 0; i < today.size(); i++){
+				if(today.get(i).getStartTime() < (hour * 1000 + minutes)){
+					today.remove(i);
+				}
 			}
-		}
-		Event nextEvent = today.get(0); //Set the "nextEvent" to the first Event in the arrayList "events"
-		//Sift through the array list to find the next coming event
-		for(int i = 1; i < today.size(); i++){
-			//if the current "nextEvent"'s start time is greater, it is not the next event 
-			if(nextEvent.getStartTime() > today.get(i).getStartTime() && today.get(i).getStartTime() > (hour*1000 + minutes)){
-				nextEvent = today.get(i);
+			nextEvent = today.get(0); //Set the "nextEvent" to the first Event in the arrayList "events"
+			//Sift through the array list to find the next coming event
+			for(int i = 1; i < today.size(); i++){
+				//if the current "nextEvent"'s start time is greater, it is not the next event 
+				if(nextEvent.getStartTime() > today.get(i).getStartTime() && today.get(i).getStartTime() > (hour*1000 + minutes)){
+					nextEvent = today.get(i);
+				}
 			}
 		}
 		return nextEvent;
