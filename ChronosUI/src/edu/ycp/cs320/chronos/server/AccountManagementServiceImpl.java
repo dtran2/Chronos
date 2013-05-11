@@ -1,5 +1,7 @@
 package edu.ycp.cs320.chronos.server;
 
+import java.sql.SQLException;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import edu.ycp.cs320.chronos.client.AccountManagementService;
 
@@ -18,7 +20,7 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * Takes the given username and password
 	 * Returns true if the account exists and the username and password match
 	 */
-	public boolean verifyAccount(String username, String password){
+	public boolean verifyAccount(String username, String password) throws SQLException{
 		return DatabaseUtil.instance().verifyAccount(username, password);	
 	}
 	
@@ -30,7 +32,7 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * 					account information using the 
 	 * @param email		The email the user would like to link with the account.
 	 */
-	public void createAccount(String usr, String password, String email){
+	public void createAccount(String usr, String password, String email) throws SQLException{
 		System.out.println("creating account: usr=" + usr + ", pass=" + password + ", email=" + email);
 		DatabaseUtil.instance().createAccount(usr, password, email);
 	}
@@ -38,11 +40,11 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * Removes the specified account from the database
 	 * @param account
 	 */
-	public void removeAccount(int accountID){
+	public void removeAccount(int accountID) throws SQLException{
 		DatabaseUtil.instance().removeAccount(accountID);	
 	}
 	
-	public int getUserID(String username){
+	public int getUserID(String username) throws SQLException{
 		return DatabaseUtil.instance().getAccount(username).getID();
 	}
 	

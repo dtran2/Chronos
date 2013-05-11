@@ -1,5 +1,6 @@
 package edu.ycp.cs320.chronos.server;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -25,7 +26,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime,
-			int endTime, String details){
+			int endTime, String details) throws SQLException{
 		DatabaseUtil.instance().createEvent(ownerID, eventName, month, day, year, startTime,
 				endTime, details);
 	}	
@@ -34,7 +35,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * and deletes its from the database
 	 */
 	@Override
-	public void removeEvent(Event event) {
+	public void removeEvent(Event event) throws SQLException{
 		DatabaseUtil.instance().removeEvent(event);
 	}
 	/**
@@ -47,7 +48,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Returns the event that will come next
 	 */
 	//@Override
-	public Event getNextEvent(String username, int month, int day, int year, int hour, int minutes) {
+	public Event getNextEvent(String username, int month, int day, int year, int hour, int minutes) throws SQLException {
 		return DatabaseUtil.instance().getNextEvent(username, month, day, year, hour, minutes);
 	}
 
@@ -56,7 +57,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Takes the given eventID
 	 * Returns the event object with the corresponding name
 	 */
-	public Event findEvent(int eventID){
+	public Event findEvent(int eventID) throws SQLException{
 		return DatabaseUtil.instance().findEvent(eventID);
 	}
 	@Override
@@ -65,7 +66,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * method to get the month for that event
 	 * Returns an integer for the the month of the event
 	 */
-	public int getMonth(int eventID) {
+	public int getMonth(int eventID) throws SQLException{
 		return DatabaseUtil.instance().getMonth(eventID);
 	}
 
@@ -75,7 +76,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * method to get the day for that event
 	 * Returns an integer for the the day of the event
 	 */
-	public int getDay(int eventID) {
+	public int getDay(int eventID ) throws SQLException{
 		return DatabaseUtil.instance().getDay(eventID);
 	}
 
@@ -85,7 +86,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * method to get the year for that event
 	 * Returns an integer for the the year of the event
 	 */
-	public int getYear(int eventID) {
+	public int getYear(int eventID) throws SQLException{
 		return DatabaseUtil.instance().getYear(eventID);
 	}
 
@@ -95,7 +96,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * method to get the start time for that event
 	 * Returns an integer for the the start time of the event in 0000 format
 	 */
-	public int getStartTime(int eventID) {
+	public int getStartTime(int eventID) throws SQLException{
 		return DatabaseUtil.instance().getStartTime(eventID);
 	}
 
@@ -105,7 +106,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * method to get the end time for that event
 	 * Returns an integer for the the end time of the event in 0000 format
 	 */
-	public int getEndTime(int eventID) {
+	public int getEndTime(int eventID) throws SQLException{
 		return DatabaseUtil.instance().getEndTime(eventID);
 	}
 
@@ -115,18 +116,19 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * method to get the details that describe the event
 	 * Returns a string with the description of the event
 	 */
-	public String getDetails(int eventID) {
+	public String getDetails(int eventID) throws SQLException{
 		return DatabaseUtil.instance().getDetails(eventID);
 	}	
-	public String nextEventString(String username, int month, int day, int year, int hour, int minutes) {
+	
+	public String nextEventString(String username, int month, int day, int year, int hour, int minutes) throws SQLException{
 		return DatabaseUtil.instance().nextEventString(username, month, day, year, hour, minutes);
 	}
 	@Override
-	public String getDayEvents(int userID, int month, int day, int year) {
+	public String getDayEvents(int userID, int month, int day, int year) throws SQLException{
 		return DatabaseUtil.instance().getDayEvents(userID, month, day, year);
 	}
 	@Override
-	public ArrayList<String> getDayString(int userID, int month, int day, int year) {
+	public ArrayList<String> getDayString(int userID, int month, int day, int year) throws SQLException{
 		return DatabaseUtil.instance().getDayString(userID, month, day, year);
 	}
 

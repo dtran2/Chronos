@@ -2,6 +2,7 @@ package edu.ycp.cs320.chronos.server;
 
 	
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
@@ -16,7 +17,7 @@ public class FakeDatabase implements IDatabase {
 	private ArrayList<Event> eventList;	//List of events
 	//private ArrayList<EventInvitation> eventInvitationList;
 	
-	public FakeDatabase() {
+	public FakeDatabase() throws SQLException {
 		accountIDCount = 0;
 		eventList = new ArrayList<Event>();
 		accountList = new ArrayList<Account>();		
@@ -184,20 +185,24 @@ public class FakeDatabase implements IDatabase {
 	 * @param endTime
 	 * @param details
 	 */
-	public void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime, int endTime, String details){
+	public Void createEvent(int ownerID, String eventName, int month, int day, int year, 
+			int startTime, int endTime, String details) throws SQLException{
+		
 		Event e = new Event(eventIDCount, ownerID, month, day, year, startTime, endTime, details, eventName);
 		eventIDCount++;
 		eventList.add(e);
+		return null;
 	}	
 	/**
 	 * Removes specified event from the database
 	 * @param eventName
 	 */
-	public void removeEvent(Event event){
+	public Void removeEvent(Event event) throws SQLException{
 		eventList.remove(event);
+		return null;
 	}
 	
-	public String getDayEvents(int userID, int month, int day, int year){
+	public String getDayEvents(int userID, int month, int day, int year) throws SQLException{
 		String dayEventsString = "";
 		ArrayList<Event> dayE = getTodaysEvents(userID, month, day, year);
 		ArrayList<Event> dayEvents = new ArrayList<Event>();
@@ -228,25 +233,28 @@ public class FakeDatabase implements IDatabase {
 	 * @param password
 	 * @param email
 	 */
-	public void createAccount(String usr, String password, String email){
+	public Void createAccount(String usr, String password, String email) throws SQLException{
 		System.out.println("Creating account for user=" + usr + ", pass=" + password);
 		Account a = new Account(accountIDCount, usr, password, email);
 		accountIDCount++;
 		System.out.println("Account password: " + a.getPassword());
 		accountList.add(a);
+		return null;
 	}
 	/**
 	 * Uses the given accountID
 	 * to remove an Account from accountList
 	 * @param accountID
+	 * @return 
 	 */
-	public void removeAccount(int accountID){
+	public Void removeAccount(int accountID) throws SQLException{
 		for(int i = 0; i < accountList.size(); i++){
 			if(accountList.get(i).getID() == accountID){
 				accountList.remove(i);				
 			}
 			
 		}
+		return null;
 	}
 	public int getUserID(String username){
 		return getAccount(username).getID();		
