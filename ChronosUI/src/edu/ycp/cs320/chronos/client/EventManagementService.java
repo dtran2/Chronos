@@ -15,25 +15,25 @@ import edu.ycp.cs320.chronos.modelClasses.Event;
 public interface EventManagementService extends RemoteService {
 	
 	public void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime,
-			int endTime, String details) throws SQLException;
+			int endTime, String details);
 	
-	public void removeEvent(Event event) throws SQLException;
+	public void removeEvent(Event event);
 	
-	public Event findEvent(int eventID) throws SQLException;
+	public Event findEvent(int eventID);
 	
-	public int getMonth(int eventID) throws SQLException;
+	public int getMonth(int eventID);
 	
-	public int getDay(int eventID) throws SQLException;
+	public int getDay(int eventID);
 	
-	public int getYear(int eventID) throws SQLException;
+	public int getYear(int eventID);
 	
-	public int getStartTime(int eventID) throws SQLException;
+	public int getStartTime(int eventID);
 	
-	public int getEndTime(int eventID) throws SQLException;
+	public int getEndTime(int eventID);
 	
-	public String getDetails(int eventID) throws SQLException;
+	public String getDetails(int eventID);
 	
-	public String nextEventString(String username, int month, int day, int year, int hour, int minutes) throws SQLException;
+	public String nextEventString(String username, int month, int day, int year, int hour, int minutes);
 	
-	public ArrayList<String> getDayString(int userID, int month, int day, int year) throws SQLException;
+	public ArrayList<String> getDayString(int userID, int month, int day, int year);
 }

@@ -8,9 +8,6 @@ import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
 
 public class FakeDatabase implements IDatabase {
-	//private Map<String, Event> nameToEventMap;
-	//private Map<String, Account> accountMap;
-	//Use Maps to organize events to accounts
 	private int accountIDCount;	//Handles current account id when making a new account
 	private int eventIDCount;	//Handles current event id when making a new Event
 	private ArrayList<Account> accountList;	//List of accounts
@@ -18,7 +15,7 @@ public class FakeDatabase implements IDatabase {
 	//private ArrayList<EventInvitation> eventInvitationList;
 	
 	public FakeDatabase() throws SQLException {
-		accountIDCount = 0;
+		accountIDCount = 1;	//Initialized at 1 since 0 will be used as fallback
 		eventList = new ArrayList<Event>();
 		accountList = new ArrayList<Account>();		
 		//Create test accounts

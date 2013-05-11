@@ -1,5 +1,6 @@
 package edu.ycp.cs320.chronos.server;
 
+
 import java.sql.SQLException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -20,8 +21,15 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * Takes the given username and password
 	 * Returns true if the account exists and the username and password match
 	 */
-	public boolean verifyAccount(String username, String password) throws SQLException{
-		return DatabaseUtil.instance().verifyAccount(username, password);
+	public boolean verifyAccount(String username, String password) {
+		try {
+			return DatabaseUtil.instance().verifyAccount(username, password);
+		} 
+		catch (SQLException e) {
+			System.out.println("SQLException: " + e.getMessage());
+			e.printStackTrace();
+		}		
+		return false;
 	}
 	
 	/**
@@ -32,20 +40,36 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * 					account information using the 
 	 * @param email		The email the user would like to link with the account.
 	 */
-	public void createAccount(String usr, String password, String email) throws SQLException{
+	public void createAccount(String usr, String password, String email) {
 		System.out.println("creating account: usr=" + usr + ", pass=" + password + ", email=" + email);
-		DatabaseUtil.instance().createAccount(usr, password, email);
+		try {
+			DatabaseUtil.instance().createAccount(usr, password, email);
+		} catch (SQLException e) {
+			System.out.println("SQLException: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Removes the specified account from the database
 	 * @param account
 	 */
-	public void removeAccount(int accountID) throws SQLException{
-		DatabaseUtil.instance().removeAccount(accountID);	
+	public void removeAccount(int accountID) {
+		try {
+			DatabaseUtil.instance().removeAccount(accountID);
+		} catch (SQLException e) {
+			System.out.println("SQLException: " + e.getMessage());
+			e.printStackTrace();
+		}	
 	}
 	
-	public int getUserID(String username) throws SQLException{
-		return DatabaseUtil.instance().getAccount(username).getID();
+	public int getUserID(String username) {
+		try {
+			return DatabaseUtil.instance().getAccount(username).getID();
+		} catch (SQLException e) {
+			System.out.println("SQLException: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	

@@ -3,6 +3,7 @@ package edu.ycp.cs320.chronos.server;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,9 +15,9 @@ import edu.ycp.cs320.chronos.shared.Event;
  *
  */
 public class ChronosDatabase implements IDatabase {
-	//set the database to the FakeDatabase.java (located within the same package)
+	//Set the database to the FakeDatabase.java (located within the same package)
 	//FIXME: The address set to DATABASE may need to change if problems occur
-	private static final String DATABASE = "./FakeDatabase";
+	private static final String DATABASE = "../FakeDatabase";
 	
 
 	static {
@@ -267,7 +268,7 @@ public class ChronosDatabase implements IDatabase {
 			@Override
 			public Boolean run(Connection conn) throws SQLException {
 				// TODO Auto-generated method stub
-				return null;
+				return false;
 			}
 			
 		});
@@ -278,8 +279,7 @@ public class ChronosDatabase implements IDatabase {
 		return databaseRun(new ITransaction<Boolean>(){
 			@Override
 			public Boolean run(Connection conn) throws SQLException {
-				// TODO Auto-generated method stub
-				return null;
+				return true;
 			}
 			
 		});
@@ -290,7 +290,6 @@ public class ChronosDatabase implements IDatabase {
 		return databaseRun(new ITransaction<String>(){
 			@Override
 			public String run(Connection conn) throws SQLException {
-				// TODO Auto-generated method stub
 				return null;
 			}
 			
