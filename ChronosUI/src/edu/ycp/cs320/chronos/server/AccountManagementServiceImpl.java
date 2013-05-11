@@ -21,7 +21,7 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * Returns true if the account exists and the username and password match
 	 */
 	public boolean verifyAccount(String username, String password) throws SQLException{
-		return DatabaseUtil.instance().verifyAccount(username, password);	
+		return DatabaseUtil.instance().verifyAccount(username, password);
 	}
 	
 	/**

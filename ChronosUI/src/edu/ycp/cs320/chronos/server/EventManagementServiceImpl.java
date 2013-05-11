@@ -15,14 +15,10 @@ import edu.ycp.cs320.chronos.shared.Event;
  */
 public class EventManagementServiceImpl extends RemoteServiceServlet
 		implements EventManagementService{
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	
 	/**
-	 * Takes the given eventID, month, day, year,
-	 * startTime, endTime, and details
-	 * to create a new event in the database
-	 * 
+	 * Creates an event and stores it in the database
 	 */
 	@Override
 	public void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime,
@@ -31,8 +27,7 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 				endTime, details);
 	}	
 	/**
-	 * Takes the given eventID finds it in the database
-	 * and deletes its from the database
+	 * Remove a specified event from the database
 	 */
 	@Override
 	public void removeEvent(Event event) throws SQLException{
@@ -120,13 +115,11 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 		return DatabaseUtil.instance().getDetails(eventID);
 	}	
 	
+	@Override
 	public String nextEventString(String username, int month, int day, int year, int hour, int minutes) throws SQLException{
 		return DatabaseUtil.instance().nextEventString(username, month, day, year, hour, minutes);
 	}
-	@Override
-	public String getDayEvents(int userID, int month, int day, int year) throws SQLException{
-		return DatabaseUtil.instance().getDayEvents(userID, month, day, year);
-	}
+	
 	@Override
 	public ArrayList<String> getDayString(int userID, int month, int day, int year) throws SQLException{
 		return DatabaseUtil.instance().getDayString(userID, month, day, year);

@@ -30,12 +30,13 @@ public class FakeDatabase implements IDatabase {
 		createEvent(getAccount("Spongebob").getID(), "New Years", 1, 1, 2014, 1200, 2400, "New Years day!");
 		createEvent(getAccount("Spongebob").getID(), "Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");		
 	}
-	@Override
+	
 	/**
 	 * Methods for handling event info.
 	 * 
 	 */
 
+	@Override
 	/**
 	 * Sifts through a list of today's events and returns the Event that will occur next
 	 * 
@@ -65,6 +66,7 @@ public class FakeDatabase implements IDatabase {
 		}
 		return nextEvent;
 	}
+	
 	/**
 	 * Returns the details of the next event of the given account
 	 * @param username
@@ -76,6 +78,7 @@ public class FakeDatabase implements IDatabase {
 	public String nextEventString(String username, int month, int day, int year, int hour, int minutes){
 		return getNextEvent(username, month, day, year, hour, minutes).getDetails();		
 	}
+	
 	/**
 	 * Uses the given account id (UserID) to sift through the database's
 	 * arrayList of events and collects all user's events in an arrayList
@@ -92,12 +95,15 @@ public class FakeDatabase implements IDatabase {
 		}
 		return userEvents;		
 	}
+	
 	/**
-	 * Returns the a list of the user's events, returns NULL if there are no events found for today.
-	 * @param userID
-	 * @param month
-	 * @param day
-	 * @param year
+	 * Returns the a list of the user's events on a given date
+	 * in sequential order; returns NULL if there are no events found for today.
+	 * Can be used for other specified dates as well.
+	 * @param userID 	-Current user's ID
+	 * @param month		-Specified month
+	 * @param day		-SpecifiedDay
+	 * @param year		-Specified Year
 	 * @return
 	 */
 	public ArrayList<Event> getTodaysEvents(int userID, int month, int day, int year){
@@ -126,6 +132,9 @@ public class FakeDatabase implements IDatabase {
 		return today;
 	}
 	
+	/**
+	 * Returns a list of the user's event names on a specified date
+	 */
 	public ArrayList<String> getDayString(int userID, int month, int day, int year){
 		ArrayList<Event> list = getTodaysEvents(userID, month, day, year);
 		ArrayList<String> s = new ArrayList<String>();
@@ -139,6 +148,7 @@ public class FakeDatabase implements IDatabase {
 		}
 		return s;
 	}
+	
 	/**
 	 * Uses the given int eventID to return
 	 * the specified event object. Returns null if
@@ -154,21 +164,27 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
+	
 	public int getMonth(int eventID){
 		return findEvent(eventID).getMonth();
 	}
+	
 	public int getDay(int eventID){
 		return findEvent(eventID).getDay();
 	}
+	
 	public int getYear(int eventID){
 		return findEvent(eventID).getYear();
 	}
+	
 	public int getStartTime(int eventID){
 		return findEvent(eventID).getStartTime();
 	}
+	
 	public int getEndTime(int eventID){
 		return findEvent(eventID).getEndTime();
 	}
+	
 	public String getDetails(int eventID){
 		return findEvent(eventID).getDetails();
 	}
@@ -193,31 +209,15 @@ public class FakeDatabase implements IDatabase {
 		eventList.add(e);
 		return null;
 	}	
+	
 	/**
 	 * Removes specified event from the database
 	 * @param eventName
 	 */
 	public Void removeEvent(Event event) throws SQLException{
+		//FIXME: This method may need to be revised
 		eventList.remove(event);
 		return null;
-	}
-	
-	public String getDayEvents(int userID, int month, int day, int year) throws SQLException{
-		String dayEventsString = "";
-		ArrayList<Event> dayE = getTodaysEvents(userID, month, day, year);
-		ArrayList<Event> dayEvents = new ArrayList<Event>();
-		if(dayE.size() != 0){
-			Event lower = dayE.get(0);
-			
-			//Add the each title in a string
-			for(int i = 0; i < dayEvents.size(); i++){
-				dayEventsString += dayEvents.get(i).getName() + "\n"; 
-			}
-		}
-		else{
-			dayEventsString = "No events";			
-		}
-		return dayEventsString;
 	}
 	
 	/**
@@ -225,8 +225,7 @@ public class FakeDatabase implements IDatabase {
 	 */
 	
 	/**
-	 * Uses the user inputed values to
-	 * create an new Account and add it to 
+	 * Create an account and add it to the database.
 	 * accountList.Uses the database's accountIDCount value to associate the new
 	 * account with a unique ID. Updates accountIDCount
 	 * @param usr
@@ -234,18 +233,21 @@ public class FakeDatabase implements IDatabase {
 	 * @param email
 	 */
 	public Void createAccount(String usr, String password, String email) throws SQLException{
-		System.out.println("Creating account for user=" + usr + ", pass=" + password);
-		Account a = new Account(accountIDCount, usr, password, email);
-		accountIDCount++;
-		System.out.println("Account password: " + a.getPassword());
-		accountList.add(a);
+		if(!isDupAccount(usr)){
+			System.out.println("Creating account for user: " + usr + ", pass: " + password);
+			Account a = new Account(accountIDCount, usr, password, email);
+			accountList.add(a);
+			accountIDCount++;
+		}
+		else{
+			System.out.println("Account already exists");
+		}
 		return null;
 	}
+	
 	/**
-	 * Uses the given accountID
-	 * to remove an Account from accountList
-	 * @param accountID
-	 * @return 
+	 * Remove an account from the database
+	 * @param accountID	- Target account ID info
 	 */
 	public Void removeAccount(int accountID) throws SQLException{
 		for(int i = 0; i < accountList.size(); i++){
@@ -256,9 +258,11 @@ public class FakeDatabase implements IDatabase {
 		}
 		return null;
 	}
+	
 	public int getUserID(String username){
 		return getAccount(username).getID();		
 	}
+	
 	/**
 	 * Uses the given String username to find
 	 * the specified account
@@ -275,6 +279,7 @@ public class FakeDatabase implements IDatabase {
 	
 	/**
 	 * Method for verifying account username and password.
+	 * Returns true if the password is correct, otherwise returns false.
 	 * @param usr
 	 * @param password
 	 * @return true if password matches with the account; false otherwise
@@ -293,9 +298,9 @@ public class FakeDatabase implements IDatabase {
 			}
 		}
 		System.out.println("No such account: " + usr);
-		return false;
-		
+		return false;		
 	}
+	
 	/**
 	 * Takes the username (string) and checks to see if
 	 * it already exists within the database

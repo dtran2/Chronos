@@ -93,7 +93,7 @@ public class ChronosDatabase implements IDatabase {
 					
 					stmt.executeUpdate();
 				} finally {
-					DBUtil.closeQuietly(stmt);
+					DatabaseUtil.closeQuietly(stmt);
 				}
 				
 				return true;
@@ -287,18 +287,6 @@ public class ChronosDatabase implements IDatabase {
 
 	@Override
 	public String nextEventString(String username, int month, int day, int year, int hour, int minutes) throws SQLException {
-		return databaseRun(new ITransaction<String>(){
-			@Override
-			public String run(Connection conn) throws SQLException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-		});
-	}
-
-	@Override
-	public String getDayEvents(int userID, int month, int day, int year) throws SQLException {
 		return databaseRun(new ITransaction<String>(){
 			@Override
 			public String run(Connection conn) throws SQLException {

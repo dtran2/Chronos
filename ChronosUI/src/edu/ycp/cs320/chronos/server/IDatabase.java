@@ -41,7 +41,5 @@ public interface IDatabase {
 	Event getNextEvent(String username, int month, int day, int year, int hour,
 			int minutes) throws SQLException;
 	
-	public String getDayEvents(int userID, int month, int day, int year) throws SQLException;
-	
 	public ArrayList<String> getDayString(int userID, int month, int day, int year) throws SQLException;
 }

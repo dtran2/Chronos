@@ -7,6 +7,7 @@ public class RPC {
 	
 	public static final AccountManagementServiceAsync accountManagementService =
 			(AccountManagementServiceAsync)GWT.create(AccountManagementService.class);
+	
 	public static final EventManagementServiceAsync eventManagementService =
 			(EventManagementServiceAsync)GWT.create(EventManagementService.class);
 			
