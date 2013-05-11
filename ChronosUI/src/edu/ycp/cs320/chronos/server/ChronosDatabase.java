@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
@@ -199,6 +200,13 @@ public class ChronosDatabase implements IDatabase {
 
 	@Override
 	public String getDayEvents(int userID, int month, int day, int year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getDayString(int userID, int month, int day,
+			int year) {
 		// TODO Auto-generated method stub
 		return null;
 	}

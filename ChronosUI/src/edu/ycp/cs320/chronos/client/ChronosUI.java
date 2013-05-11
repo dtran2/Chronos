@@ -34,8 +34,8 @@ public class ChronosUI implements EntryPoint{
 		}
 		currentView = cv;
 		RootLayoutPanel.get().add(cv);
-		RootLayoutPanel.get().setWidgetTopBottom(cv, 10.0, Unit.PX, 10.0, Unit.PX);
-		RootLayoutPanel.get().setWidgetLeftRight(cv, 10.0, Unit.PX, 10.0, Unit.PX);
+		RootLayoutPanel.get().setWidgetTopBottom(cv, 350.0, Unit.PX, 100.0, Unit.PX);
+		RootLayoutPanel.get().setWidgetLeftRight(cv, 350.0, Unit.PX, 100.0, Unit.PX);
 		GWT.log("Set current view: " + cv.getClass().getName());
 	}
 	public static void setUser(String newUser){

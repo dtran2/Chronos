@@ -1,5 +1,7 @@
 package edu.ycp.cs320.chronos.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -22,4 +24,5 @@ public interface EventManagementService extends RemoteService {
 	public String getDetails(int eventID);
 	public String nextEventString(String username, int month, int day, int year, int hour, int minutes);
 	public String getDayEvents(int userID, int month, int day, int year);
+	public ArrayList<String> getDayString(int userID, int month, int day, int year);
 }

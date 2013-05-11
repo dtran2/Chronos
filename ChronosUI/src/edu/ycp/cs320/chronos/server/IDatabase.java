@@ -1,5 +1,7 @@
 package edu.ycp.cs320.chronos.server;
 
+import java.util.ArrayList;
+
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
 
@@ -23,4 +25,5 @@ public interface IDatabase {
 	Event getNextEvent(String username, int month, int day, int year, int hour,
 			int minutes);
 	public String getDayEvents(int userID, int month, int day, int year);
+	public ArrayList<String> getDayString(int userID, int month, int day, int year);
 }

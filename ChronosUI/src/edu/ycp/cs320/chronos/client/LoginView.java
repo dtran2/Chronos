@@ -49,7 +49,7 @@ public class LoginView extends Composite {
 								Label error = new Label("The entered username and password did not match.");
 								loginPanel.add(error);
 								loginPanel.setWidgetLeftWidth(error, 177.0, Unit.PX, 170.0, Unit.PX);
-								loginPanel.setWidgetTopHeight(error, 358.0, Unit.PX, 57.0, Unit.PX);								
+								loginPanel.setWidgetTopHeight(error, 358.0, Unit.PX, 57.0, Unit.PX);
 							}
 						}
 						

@@ -3,11 +3,8 @@ package edu.ycp.cs320.chronos.server;
 	
 
 import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.Map;
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
-//import edu.ycp.cs320.chronos.shared.EventInvitation;
 
 public class FakeDatabase implements IDatabase {
 	//private Map<String, Event> nameToEventMap;
@@ -105,12 +102,41 @@ public class FakeDatabase implements IDatabase {
 	public ArrayList<Event> getTodaysEvents(int userID, int month, int day, int year){
 		ArrayList<Event> userEvents = getAccountEvents(userID);
 		ArrayList<Event> today = new ArrayList<Event>();
-		for(int i = 0; i < userEvents.size(); i++){
-			if(userEvents.get(i).getMonth() == month && userEvents.get(i).getDay() == day && userEvents.get(i).getYear() == year){
-				today.add(userEvents.get(i));
+		ArrayList<Event> seq = new ArrayList<Event>();
+		if(today.size() != 0){
+			for(int i = 0; i < userEvents.size(); i++){
+				if(userEvents.get(i).getMonth() == month && userEvents.get(i).getDay() == day && userEvents.get(i).getYear() == year){
+					today.add(userEvents.get(i));
+				}
+			}
+			Event lower = today.get(0);
+			int size = today.size();
+			//Order events sequentially
+			for(int i = 0; i < size; i++){
+				for(int j = 0; j < i; j++){
+					if(lower.getStartTime() >= today.get(j).getStartTime()){
+						lower = today.get(j);
+					}				
+				}
+				seq.add(lower);
+				today.remove(lower);
 			}
 		}
 		return today;
+	}
+	
+	public ArrayList<String> getDayString(int userID, int month, int day, int year){
+		ArrayList<Event> list = getTodaysEvents(userID, month, day, year);
+		ArrayList<String> s = new ArrayList<String>();
+		if(!list.isEmpty()){
+			for(int i = 0; i < list.size(); i++){
+				s.add(list.get(i).getName());
+			}
+		}
+		else{
+			s.add("No events");
+		}
+		return s;
 	}
 	/**
 	 * Uses the given int eventID to return
@@ -175,17 +201,9 @@ public class FakeDatabase implements IDatabase {
 		String dayEventsString = "";
 		ArrayList<Event> dayE = getTodaysEvents(userID, month, day, year);
 		ArrayList<Event> dayEvents = new ArrayList<Event>();
-		if(dayE != null){
+		if(dayE.size() != 0){
 			Event lower = dayE.get(0);
-			//Order events sequentially
-			for(int i = 0; i < dayE.size(); i++){
-				for(int j = 0; j < dayE.size(); j++){
-					if(lower.getStartTime() >= dayE.get(j).getStartTime()){
-						lower = dayE.get(j);
-						dayE.remove(j);
-					}				
-				}
-			}
+			
 			//Add the each title in a string
 			for(int i = 0; i < dayEvents.size(); i++){
 				dayEventsString += dayEvents.get(i).getName() + "\n"; 
@@ -269,9 +287,7 @@ public class FakeDatabase implements IDatabase {
 		System.out.println("No such account: " + usr);
 		return false;
 		
-	}	
-	
-	
+	}
 	/**
 	 * Takes the username (string) and checks to see if
 	 * it already exists within the database

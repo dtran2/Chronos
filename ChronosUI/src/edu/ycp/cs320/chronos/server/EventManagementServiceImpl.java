@@ -1,5 +1,7 @@
 package edu.ycp.cs320.chronos.server;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import edu.ycp.cs320.chronos.client.EventManagementService;
 import edu.ycp.cs320.chronos.shared.Event;
@@ -122,6 +124,10 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	@Override
 	public String getDayEvents(int userID, int month, int day, int year) {
 		return DatabaseUtil.instance().getDayEvents(userID, month, day, year);
+	}
+	@Override
+	public ArrayList<String> getDayString(int userID, int month, int day, int year) {
+		return DatabaseUtil.instance().getDayString(userID, month, day, year);
 	}
 
 }

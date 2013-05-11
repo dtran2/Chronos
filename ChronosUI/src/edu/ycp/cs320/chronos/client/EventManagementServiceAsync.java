@@ -1,5 +1,7 @@
 package edu.ycp.cs320.chronos.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.ycp.cs320.chronos.shared.Event;
@@ -18,4 +20,6 @@ public interface EventManagementServiceAsync {
 	void nextEventString(String username, int month, int day, int year, int hour, int minutes,
 			AsyncCallback<String> callback);
 	void getDayEvents(int userID, int month, int day, int year, AsyncCallback<String> callback);
+	void getDayString(int userID, int month, int day, int year,
+			AsyncCallback<ArrayList<String>> callback);
 }
