@@ -14,7 +14,7 @@ public class FakeDatabase implements IDatabase {
 	private ArrayList<Event> eventList;	//List of events
 	//private ArrayList<EventInvitation> eventInvitationList;
 	
-	public FakeDatabase() throws SQLException {
+	public FakeDatabase() /*throws SQLException*/ {
 		accountIDCount = 1;	//Initialized at 1 since 0 will be used as fallback
 		eventList = new ArrayList<Event>();
 		accountList = new ArrayList<Account>();		
@@ -199,7 +199,7 @@ public class FakeDatabase implements IDatabase {
 	 * @param details
 	 */
 	public Void createEvent(int ownerID, String eventName, int month, int day, int year, 
-			int startTime, int endTime, String details) throws SQLException{
+			int startTime, int endTime, String details)/* throws SQLException*/{
 		
 		Event e = new Event(eventIDCount, ownerID, month, day, year, startTime, endTime, details, eventName);
 		eventIDCount++;
@@ -211,7 +211,7 @@ public class FakeDatabase implements IDatabase {
 	 * Removes specified event from the database
 	 * @param eventName
 	 */
-	public Void removeEvent(Event event) throws SQLException{
+	public Void removeEvent(Event event) /*throws SQLException*/{
 		//FIXME: This method may need to be revised
 		eventList.remove(event);
 		return null;
@@ -229,7 +229,7 @@ public class FakeDatabase implements IDatabase {
 	 * @param password
 	 * @param email
 	 */
-	public Void createAccount(String usr, String password, String email) throws SQLException{
+	public Void createAccount(String usr, String password, String email)/* throws SQLException*/{
 		if(!isDupAccount(usr)){
 			System.out.println("Creating account for user: " + usr + ", pass: " + password);
 			Account a = new Account(accountIDCount, usr, password, email);
@@ -246,7 +246,7 @@ public class FakeDatabase implements IDatabase {
 	 * Remove an account from the database
 	 * @param accountID	- Target account ID info
 	 */
-	public Void removeAccount(int accountID) throws SQLException{
+	public Void removeAccount(int accountID) /*throws SQLException*/{
 		for(int i = 0; i < accountList.size(); i++){
 			if(accountList.get(i).getID() == accountID){
 				accountList.remove(i);				

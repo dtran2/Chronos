@@ -1,4 +1,4 @@
-package edu.ycp.cs320.chronos.server;
+/*package edu.ycp.cs320.chronos.server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
-/**
+*//**
  * Main database class
  * @author dtran2
  *
- */
+ *//*
 public class ChronosDatabase implements IDatabase {
 	//Set the database to the FakeDatabase.java (located within the same package)
 	//FIXME: The address set to DATABASE may need to change if problems occur
@@ -103,9 +103,9 @@ public class ChronosDatabase implements IDatabase {
 	}
 
 	
-	/**
+	*//**
 	 * Methods for getting values from the database
-	 */
+	 *//*
 	
 	
 	@Override
@@ -134,8 +134,13 @@ public class ChronosDatabase implements IDatabase {
 		return databaseRun(new ITransaction<Integer>(){
 			@Override
 			public Integer run(Connection conn) throws SQLException {
-				// TODO Auto-generated method stub
-				return null;
+				PreparedStatement ps = null;
+				try{
+					return 0;
+				}
+				finally{
+					//Not complete
+				}
 			}
 			
 		});
@@ -158,7 +163,6 @@ public class ChronosDatabase implements IDatabase {
 		return databaseRun(new ITransaction<Integer>(){
 			@Override
 			public Integer run(Connection conn) throws SQLException {
-				// TODO Auto-generated method stub
 				return null;
 			}
 			
@@ -309,3 +313,4 @@ public class ChronosDatabase implements IDatabase {
 				});
 	}
 }
+*/

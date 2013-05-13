@@ -23,25 +23,25 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	@Override
 	public void createEvent(int ownerID, String eventName, int month, int day, int year, int startTime,
 			int endTime, String details){
-		try {
+		//try {
 			DatabaseUtil.instance().createEvent(ownerID, eventName, month, day, year, startTime,
 					endTime, details);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
-		}
+		}*/
 	}	
 	/**
 	 * Remove a specified event from the database
 	 */
 	@Override
 	public void removeEvent(Event event){
-		try {
+		//try {
 			DatabaseUtil.instance().removeEvent(event);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
-		}
+		}*/
 	}
 	/**
 	 * Takes the given user, month, day, and year and
@@ -54,13 +54,13 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 */
 	//@Override
 	public Event getNextEvent(String username, int month, int day, int year, int hour, int minutes) {
-		try {
+		//try {
 			return DatabaseUtil.instance().getNextEvent(username, month, day, year, hour, minutes);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return null;
-		}
+		}*/
 	}
 
 	@Override
@@ -69,13 +69,13 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Returns the event object with the corresponding name
 	 */
 	public Event findEvent(int eventID){
-		try {
+//		try {
 			return DatabaseUtil.instance().findEvent(eventID);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return null;
-		}
+		}*/
 		
 	}
 	@Override
@@ -85,13 +85,13 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Returns an integer for the the month of the event
 	 */
 	public int getMonth(int eventID){
-		try {
+		//try {
 			return DatabaseUtil.instance().getMonth(eventID);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return 0;
-		}
+		}*/
 	}
 	@Override
 	/**
@@ -100,13 +100,13 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Returns an integer for the the day of the event
 	 */
 	public int getDay(int eventID ){
-		try {
+	//	try {
 			return DatabaseUtil.instance().getDay(eventID);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return 1;
-		}
+		}*/
 	}
 
 	@Override
@@ -116,13 +116,13 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Returns an integer for the the year of the event
 	 */
 	public int getYear(int eventID){
-		try {
+		//try {
 			return DatabaseUtil.instance().getYear(eventID);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return 0;
-		}
+		}*/
 	}
 
 	@Override
@@ -132,13 +132,13 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Returns an integer for the the start time of the event in 0000 format
 	 */
 	public int getStartTime(int eventID){
-		try {
+		//try {
 			return DatabaseUtil.instance().getStartTime(eventID);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return 0;
-		}
+		}*/
 	}
 
 	@Override
@@ -148,13 +148,13 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Returns an integer for the the end time of the event in 0000 format
 	 */
 	public int getEndTime(int eventID){
-		try {
+		//try {
 			return DatabaseUtil.instance().getEndTime(eventID);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return 0;
-		}
+		}*/
 	}
 
 	@Override
@@ -164,35 +164,35 @@ public class EventManagementServiceImpl extends RemoteServiceServlet
 	 * Returns a string with the description of the event
 	 */
 	public String getDetails(int eventID){
-		try {
+		//try {
 			return DatabaseUtil.instance().getDetails(eventID);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return "Error encountered";
-		}
+		}*/
 	}	
 	
 	@Override
 	public String nextEventString(String username, int month, int day, int year, int hour, int minutes){
-		try {
+		//try {
 			return DatabaseUtil.instance().nextEventString(username, month, day, year, hour, minutes);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return "Error encountered";
-		}
+		}*/
 	}
 	
 	@Override
 	public ArrayList<String> getDayString(int userID, int month, int day, int year){
-		try {
+		//try {
 			return DatabaseUtil.instance().getDayString(userID, month, day, year);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 			return null;
-		}
+		}*/
 	}
 
 }

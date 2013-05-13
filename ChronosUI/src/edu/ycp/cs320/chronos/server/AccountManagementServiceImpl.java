@@ -22,14 +22,14 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 * Returns true if the account exists and the username and password match
 	 */
 	public boolean verifyAccount(String username, String password) {
-		try {
+		//try {
 			return DatabaseUtil.instance().verifyAccount(username, password);
-		} 
+		/*} 
 		catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
-		}		
-		return false;
+		}	*/	
+		//return false;
 	}
 	
 	/**
@@ -42,34 +42,34 @@ public class AccountManagementServiceImpl extends RemoteServiceServlet
 	 */
 	public void createAccount(String usr, String password, String email) {
 		System.out.println("creating account: usr=" + usr + ", pass=" + password + ", email=" + email);
-		try {
+		//try {
 			DatabaseUtil.instance().createAccount(usr, password, email);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
-		}
+		}*/
 	}
 	/**
 	 * Removes the specified account from the database
 	 * @param account
 	 */
 	public void removeAccount(int accountID) {
-		try {
+		//try {
 			DatabaseUtil.instance().removeAccount(accountID);
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
-		}	
+		}	*/
 	}
 	
 	public int getUserID(String username) {
-		try {
+		//try {
 			return DatabaseUtil.instance().getAccount(username).getID();
-		} catch (SQLException e) {
+		/*} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			e.printStackTrace();
 		}
-		return 0;
+		return 0;*/
 	}
 	
 	

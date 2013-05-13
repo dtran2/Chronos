@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class DatabaseUtil {
-	private static final IDatabase Instance = new ChronosDatabase();
-	
+public abstract class DatabaseUtil{
+	private static final IDatabase Instance = new FakeDatabase();
+	//private static final IDatabase Instance = new ChronosDatabase();
 	public static IDatabase instance(){
 		return Instance;
 	}
