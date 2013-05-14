@@ -108,7 +108,7 @@ public class mainView extends Composite{
 		mainPanel.setWidgetLeftWidth(createEvent, 0.0, Unit.PX, 81.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(createEvent, 87.0, Unit.PX, 30.0, Unit.PX);
 		// Displays new panel for create event, closes at click of close or add event to calendar
-
+///////////////////////////////////////////////////////////////////Create Event///////////////////////////////////////////////////////////////////////////
         createEvent.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
             	if(!createEventPanel.isAttached()){
@@ -203,6 +203,32 @@ public class mainView extends Composite{
 												mainPanel.remove(createEventPanel);
 												GWT.log("Event created");
 												//Remove the createEventPanel and notify the user of the successful event creation
+												mainPanel.remove(createEventPanel);
+								                //Notify the user of the newly created event
+								                /**
+								        		 * Event created panel
+								        		 */
+								        		final LayoutPanel eventCreated = new LayoutPanel();
+								        		mainPanel.add(eventCreated);
+								        		mainPanel.setWidgetLeftWidth(eventCreated, 187.0, Unit.PX, 270.0, Unit.PX);
+								        		mainPanel.setWidgetTopHeight(eventCreated, 172.0, Unit.PX, 57.0, Unit.PX);
+								        		
+								        		Label lblEventCreated = new Label("Event Created!");
+								        		lblEventCreated.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+								        		eventCreated.add(lblEventCreated);
+								        		eventCreated.setWidgetLeftWidth(lblEventCreated, 0.0, Unit.PX, 270.0, Unit.PX);
+								        		eventCreated.setWidgetTopHeight(lblEventCreated, 0.0, Unit.PX, 52.0, Unit.PX);
+								        		
+								        		Button closeEventCreated = new Button("Close");
+								        		eventCreated.add(closeEventCreated);
+								        		eventCreated.setWidgetLeftWidth(closeEventCreated, 189.0, Unit.PX, 81.0, Unit.PX);
+								        		eventCreated.setWidgetTopHeight(closeEventCreated, 24.0, Unit.PX, 30.0, Unit.PX);
+								        		closeEventCreated.addClickHandler(new ClickHandler() {
+													@Override
+													public void onClick(ClickEvent event) {
+														mainPanel.remove(eventCreated);
+													}
+								        		});
 											}							
 									
 								});
@@ -244,6 +270,7 @@ public class mainView extends Composite{
 		btnCalendar.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
             	if(!dayEventsWin){
+            		dayEventsWin = true;
 	        		 //Layout panel for list of selected day's events
 	                final LayoutPanel dayEventsPanel = new LayoutPanel();
 	        		mainPanel.add(dayEventsPanel);
@@ -256,7 +283,7 @@ public class mainView extends Composite{
 	        		dayEventsPanel.add(mainDate);
 	        		dayEventsPanel.setWidgetLeftWidth(mainDate, 0.0, Unit.PX, 191.0, Unit.PX);
 	        		dayEventsPanel.setWidgetTopHeight(mainDate, 169.0, Unit.PX, 414.0, Unit.PX);
-	        		        		
+	        		
 	        		Button btnX = new Button("X");
 	        		dayEventsPanel.add(btnX);
 	        		dayEventsPanel.setWidgetLeftWidth(btnX, 409.0, Unit.PX, 27.0, Unit.PX);
@@ -299,35 +326,7 @@ public class mainView extends Composite{
 					                for(int i = 0; i < result.size(); i++){
 					                	listBox.addItem(result.get(i));
 					                }
-					                
-					                //Remove the dateEventsPanel
-					                mainPanel.remove(dayEventsPanel);
-					                
-					                //Notify the user of the newly created event
-					                /**
-					        		 * Event created panel
-					        		 */
-					        		final LayoutPanel eventCreated = new LayoutPanel();
-					        		mainPanel.add(eventCreated);
-					        		mainPanel.setWidgetLeftWidth(eventCreated, 187.0, Unit.PX, 270.0, Unit.PX);
-					        		mainPanel.setWidgetTopHeight(eventCreated, 172.0, Unit.PX, 57.0, Unit.PX);
-					        		
-					        		Label lblEventCreated = new Label("Event Created!");
-					        		lblEventCreated.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-					        		eventCreated.add(lblEventCreated);
-					        		eventCreated.setWidgetLeftWidth(lblEventCreated, 0.0, Unit.PX, 270.0, Unit.PX);
-					        		eventCreated.setWidgetTopHeight(lblEventCreated, 0.0, Unit.PX, 52.0, Unit.PX);
-					        		
-					        		Button closeEventCreated = new Button("Close");
-					        		eventCreated.add(closeEventCreated);
-					        		eventCreated.setWidgetLeftWidth(closeEventCreated, 189.0, Unit.PX, 81.0, Unit.PX);
-					        		eventCreated.setWidgetTopHeight(closeEventCreated, 24.0, Unit.PX, 30.0, Unit.PX);
-					        		closeEventCreated.addClickHandler(new ClickHandler() {
-										@Override
-										public void onClick(ClickEvent event) {
-											mainPanel.remove(eventCreated);
-										}
-					        		});
+				                					                
 								}	        					
 	        				});
 						}
@@ -337,18 +336,17 @@ public class mainView extends Composite{
 	        	else{
 	        		//Remove dayEventsPanel
 	        		mainPanel.remove(dayEventsPanel);
-	        	}	            
+	        		dayEventsWin = false;
+	        	}
             }
 
         });
 		
-		//Display the user's next event details
+		/*//Display the user's next event details
 		mainPanel.add(dateLabel);
 		mainPanel.setWidgetLeftWidth(dateLabel, 580.0, Unit.PX, 64.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
 		
-		
-				
 		SimpleDateFormat date = new SimpleDateFormat("MMddyyyyHHmm");
 		int month = Integer.parseInt(date.format(new Date()).substring(0, 2));
 		int day = Integer.parseInt(date.format(new Date()).toString().substring(2, 4));
@@ -368,7 +366,7 @@ public class mainView extends Composite{
 				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);
 				
 			}
-		});
+		});*/
 	}
 }
 

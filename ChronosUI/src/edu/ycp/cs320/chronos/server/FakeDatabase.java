@@ -90,7 +90,7 @@ public class FakeDatabase implements IDatabase {
 			}
 			
 		}
-		return userEvents;		
+		return userEvents;
 	}
 	
 	/**
