@@ -26,6 +26,10 @@ public class FakeDatabase implements IDatabase {
 		createEvent(getAccount("Spongebob").getID(), "Christmas", 5, 13, 2013, 1200, 2400, "Christmas");
 		createEvent(getAccount("Spongebob").getID(), "New Years", 1, 1, 2014, 1200, 2400, "New Years day!");
 		createEvent(getAccount("Spongebob").getID(), "Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");		
+
+		createEvent(getAccount("Spongebob").getID(), "CS320 Final", 5 , 15, 2013, 800, 1000, "CS320 Presentation");
+		createEvent(getAccount("Spongebob").getID(), "Lunch", 5, 14, 2013, 1200, 1300, "Time to Eat");
+		createEvent(getAccount("Spongebob").getID(), "Study", 5, 14, 2013, 1400, 1500, "Study for Finals");
 	}
 	
 	/**
@@ -46,7 +50,7 @@ public class FakeDatabase implements IDatabase {
 		Event nextEvent = new Event(eventIDCount, getUserID(username), month, day, year, 0, 0, "No events today", "default");
 		eventIDCount++;
 		//Remove events that have already occured
-		if(!today.isEmpty()){
+		if(today.size() != 0){
 			for(int i = 0; i < today.size(); i++){
 				if(today.get(i).getStartTime() < (hour * 1000 + minutes) && today.get(i).getEndTime() > (hour * 1000 + minutes)){
 					today.remove(i);
@@ -107,13 +111,14 @@ public class FakeDatabase implements IDatabase {
 		ArrayList<Event> userEvents = getAccountEvents(userID);
 		ArrayList<Event> today = new ArrayList<Event>();
 		ArrayList<Event> seq = new ArrayList<Event>();
-		if(today.size() != 0){
+		if(userEvents.size() != 0){
 			for(int i = 0; i < userEvents.size(); i++){
 				if(userEvents.get(i).getMonth() == month && userEvents.get(i).getDay() == day && userEvents.get(i).getYear() == year){
 					today.add(userEvents.get(i));
 				}
 			}
-			Event lower = today.get(0);
+			/*Event lower = today.get(0);
+			
 			int size = today.size();
 			//Order events sequentially
 			for(int i = 0; i < size; i++){
@@ -124,7 +129,7 @@ public class FakeDatabase implements IDatabase {
 				}
 				seq.add(lower);
 				today.remove(lower);
-			}
+			}*/
 		}
 		return today;
 	}
@@ -160,7 +165,7 @@ public class FakeDatabase implements IDatabase {
 			}
 		}
 		return null;
-	}
+	}	
 	
 	public int getMonth(int eventID){
 		return findEvent(eventID).getMonth();
@@ -231,7 +236,7 @@ public class FakeDatabase implements IDatabase {
 	 */
 	public Void createAccount(String usr, String password, String email)/* throws SQLException*/{
 		if(!isDupAccount(usr)){
-			System.out.println("Creating account for user: " + usr + ", pass: " + password);
+			System.out.println("Creating account for user: " + usr + ", pass: " + password + "UserID: " + accountIDCount);
 			Account a = new Account(accountIDCount, usr, password, email);
 			accountList.add(a);
 			accountIDCount++;

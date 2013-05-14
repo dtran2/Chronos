@@ -91,7 +91,5 @@ public class LoginView extends Composite {
 		loginPanel.setWidgetTopHeight(signUp, 0.0, Unit.PX, 45.0, Unit.PX);
 		
 		
-			
-		
 	}
 }

@@ -22,28 +22,28 @@ import java.util.ArrayList;
 import java.util.Date;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class mainView extends Composite{
+	private DateTimeFormat date;
 	private LayoutPanel dayEventsPanel;
 	private DateLabel dateLabel;
 	private boolean calWin;				//Keeps track of whether or not the calendar exists on the panel 
     private final LayoutPanel createEventPanel;
     private boolean dayEventsWin;
 	public mainView(){
+		date = DateTimeFormat.getFormat("MMddyyyyHHmm");
 		dayEventsWin = false;
 		dayEventsPanel = new LayoutPanel();
 		dateLabel = new DateLabel();
 		calWin = false;
 		createEventPanel = new LayoutPanel();
 		final LayoutPanel mainPanel = new LayoutPanel();
-		initWidget(mainPanel);
-		
-		//DEBUGGING ONLY AREA/////////////////////
-		
-		
+		initWidget(mainPanel);		
+		//DEBUGGING ONLY AREA///////////////
 		/**
 		 * Event created panel
 		 *//*
@@ -234,12 +234,6 @@ public class mainView extends Composite{
 								});
 								
 							}
-							/*else{	//Blank fields exist
-								Label error = new Label("Required fields are empty.");
-								createEventPanel.add(error);
-								createEventPanel.setWidgetLeftWidth(error, 177.0, Unit.PX, 170.0, Unit.PX);
-								createEventPanel.setWidgetTopHeight(error, 358.0, Unit.PX, 57.0, Unit.PX);							
-							}*/
 		                }
 		                
 	                });   
@@ -325,8 +319,7 @@ public class mainView extends Composite{
 					                //Add event titles to the box
 					                for(int i = 0; i < result.size(); i++){
 					                	listBox.addItem(result.get(i));
-					                }
-				                					                
+					                }				                					                
 								}	        					
 	        				});
 						}
@@ -342,12 +335,11 @@ public class mainView extends Composite{
 
         });
 		
-		/*//Display the user's next event details
-		mainPanel.add(dateLabel);
+		//Display the user's next event details
 		mainPanel.setWidgetLeftWidth(dateLabel, 580.0, Unit.PX, 64.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
 		
-		SimpleDateFormat date = new SimpleDateFormat("MMddyyyyHHmm");
+		
 		int month = Integer.parseInt(date.format(new Date()).substring(0, 2));
 		int day = Integer.parseInt(date.format(new Date()).toString().substring(2, 4));
 		int year = Integer.parseInt(date.format(new Date()).toString().substring(4, 8));
@@ -366,7 +358,7 @@ public class mainView extends Composite{
 				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);
 				
 			}
-		});*/
+		});
 	}
 }
 

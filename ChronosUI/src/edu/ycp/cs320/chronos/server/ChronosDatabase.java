@@ -1,4 +1,4 @@
-/*package edu.ycp.cs320.chronos.server;
+package edu.ycp.cs320.chronos.server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,15 +9,15 @@ import java.util.ArrayList;
 
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
-*//**
+/**
  * Main database class
  * @author dtran2
  *
- *//*
+ */
 public class ChronosDatabase implements IDatabase {
 	//Set the database to the FakeDatabase.java (located within the same package)
 	//FIXME: The address set to DATABASE may need to change if problems occur
-	private static final String DATABASE = "../FakeDatabase";
+	private static final String DATABASE = "H:/chronos.db";// "../FakeDatabase";
 	
 
 	static {
@@ -103,20 +103,24 @@ public class ChronosDatabase implements IDatabase {
 	}
 
 	
-	*//**
-	 * Methods for getting values from the database
-	 *//*
+	//
+	// Methods for getting values from the database
+	//
 	
 	
 	@Override
-	public Event getNextEvent(String username, int month, int day, int year, int hour, int minutes) throws SQLException {
-		return databaseRun(new ITransaction<Event>(){
-			@Override
-			public Event run(Connection conn) throws SQLException {
-				return null;
-			}
-			
-		});
+	public Event getNextEvent(String username, int month, int day, int year, int hour, int minutes)  {
+		try {
+			return databaseRun(new ITransaction<Event>(){
+				@Override
+				public Event run(Connection conn) throws SQLException {
+					return null;
+				}
+				
+			});
+		} catch (SQLException e) {
+			throw new RuntimeException("SQLException getting next event", e);
+		}
 	}
 	@Override
 	public Event findEvent(int eventID) throws SQLException{
@@ -218,28 +222,49 @@ public class ChronosDatabase implements IDatabase {
 	}
 
 	@Override
-	public Void removeEvent(Event event) throws SQLException {
-		return databaseRun(new ITransaction<Void>(){
-			@Override
-			public Void run(Connection conn) throws SQLException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-		});
+	public Void removeEvent(Event event) {
+		try {
+			return databaseRun(new ITransaction<Void>(){
+				@Override
+				public Void run(Connection conn) throws SQLException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+				
+			});
+		} catch (SQLException e) {
+			throw new RuntimeException("SQLException removing an event", e);
+		}
 		
 	}
 
 	@Override
-	public Void createAccount(String usr, String password, String email) throws SQLException {
-		return databaseRun(new ITransaction<Void>(){
-			@Override
-			public Void run(Connection conn) throws SQLException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-		});
+	public Void createAccount(final String usr, final String password, final String email)  {
+		try {
+			return databaseRun(new ITransaction<Void>(){
+				@Override
+				public Void run(Connection conn) throws SQLException {
+					PreparedStatement stmt = null;
+					
+					try {
+						stmt = conn.prepareStatement(
+								"insert into account_list (user_names, user_password) values (?, ?)"
+						);
+						stmt.setString(1, usr);
+						stmt.setString(2, password);
+						
+						stmt.executeUpdate();
+						
+						return null;
+					} finally {
+						DatabaseUtil.closeQuietly(stmt);
+					}
+				}
+				
+			});
+		} catch (SQLException e) {
+			throw new RuntimeException("SQLException creating account", e);
+		}
 	}
 
 	@Override
@@ -265,28 +290,64 @@ public class ChronosDatabase implements IDatabase {
 			
 		});
 	}
-
+//////////////////////////////////////////////////////////
 	@Override
-	public boolean verifyAccount(String usr, String password) throws SQLException {
-		return databaseRun(new ITransaction<Boolean>(){
-			@Override
-			public Boolean run(Connection conn) throws SQLException {
-				// TODO Auto-generated method stub
-				return false;
-			}
-			
-		});
+	public boolean verifyAccount(final String usr, final String password) {
+		try {
+			return databaseRun(new ITransaction<Boolean>(){
+				@Override
+				public Boolean run(Connection conn) throws SQLException {
+					PreparedStatement stmt = null;
+					ResultSet resultSet = null;
+					
+					try {
+						stmt = conn.prepareStatement("select * from account_list where user_names = ?, user_password = ?");
+						stmt.setString(1, usr);
+						stmt.setString(2, password);
+						
+						resultSet = stmt.executeQuery();
+						
+						return resultSet.next(); // true if user exists, false otherwise
+					} finally {
+						DatabaseUtil.closeQuietly(stmt);
+						DatabaseUtil.closeQuietly(resultSet);
+					}
+				}
+				
+			});
+		} catch (SQLException e) {
+			throw new RuntimeException("SQLException verifying account", e);
+		}
 	}
-
+/////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean isDupAccount(String account) throws SQLException {
-		return databaseRun(new ITransaction<Boolean>(){
-			@Override
-			public Boolean run(Connection conn) throws SQLException {
-				return true;
-			}
+	public boolean isDupAccount(final String account) {
+		try {
+			return databaseRun(new ITransaction<Boolean>(){
+				
+				@Override
+				public Boolean run(Connection conn) throws SQLException{
+					PreparedStatement stmt = null;
+					ResultSet resultset = null;
+					try{
+						stmt = conn.prepareStatement("select * from account_list where user_names = ?");
+						stmt.setString(1, account);						
+						resultset = stmt.executeQuery();
+						
+						return resultset.next();
+					}
+					finally{
+						DatabaseUtil.closeQuietly(stmt);
+						DatabaseUtil.closeQuietly(resultset);
+					}
+				}
+				
+			});
+		} catch (SQLException e) {
+			throw new RuntimeException("SQLException testing for duplicate accounts");
+		} finally {
 			
-		});
+		}
 	}
 
 	@Override
@@ -313,4 +374,3 @@ public class ChronosDatabase implements IDatabase {
 				});
 	}
 }
-*/
