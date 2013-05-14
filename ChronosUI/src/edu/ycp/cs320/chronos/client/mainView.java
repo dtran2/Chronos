@@ -8,11 +8,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DateLabel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.google.gwt.user.client.ui.HTML;
 import java.text.SimpleDateFormat;
@@ -22,30 +24,46 @@ import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class mainView extends Composite{
 	private LayoutPanel dayEventsPanel;
 	private DateLabel dateLabel;
 	private boolean calWin;				//Keeps track of whether or not the calendar exists on the panel 
-    private DatePicker mainDate;		//Calendar widget
     private final LayoutPanel createEventPanel;
+    private boolean dayEventsWin;
 	public mainView(){
+		dayEventsWin = false;
 		dayEventsPanel = new LayoutPanel();
 		dateLabel = new DateLabel();
-		calWin = false;	
-		mainDate = new DatePicker();
+		calWin = false;
 		createEventPanel = new LayoutPanel();
 		final LayoutPanel mainPanel = new LayoutPanel();
 		initWidget(mainPanel);
 		
 		//DEBUGGING ONLY AREA/////////////////////
-		/*
-		//Calendar widget
-		mainPanel.add(mainDate);
-        mainPanel.setWidgetLeftWidth(mainDate, 0.0, Unit.PX, 191.0, Unit.PX);
-        mainPanel.setWidgetTopHeight(mainDate, 169.0, Unit.PX, 414.0, Unit.PX);
+		
+		
+		/**
+		 * Event created panel
+		 *//*
+		LayoutPanel eventCreated = new LayoutPanel();
+		mainPanel.add(eventCreated);
+		mainPanel.setWidgetLeftWidth(eventCreated, 187.0, Unit.PX, 270.0, Unit.PX);
+		mainPanel.setWidgetTopHeight(eventCreated, 172.0, Unit.PX, 57.0, Unit.PX);
+		
+		Label lblEventCreated = new Label("Event Created!");
+		lblEventCreated.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		eventCreated.add(lblEventCreated);
+		eventCreated.setWidgetLeftWidth(lblEventCreated, 0.0, Unit.PX, 270.0, Unit.PX);
+		eventCreated.setWidgetTopHeight(lblEventCreated, 0.0, Unit.PX, 52.0, Unit.PX);
+		
+		Button closeEventCreated = new Button("Close");
+		eventCreated.add(closeEventCreated);
+		eventCreated.setWidgetLeftWidth(closeEventCreated, 189.0, Unit.PX, 81.0, Unit.PX);
+		eventCreated.setWidgetTopHeight(closeEventCreated, 24.0, Unit.PX, 30.0, Unit.PX);*/
         
-        //Layout panel for list of selected day's events
+       /* //Layout panel for list of selected day's events
         final LayoutPanel dayEventsPanel = new LayoutPanel();
 		mainPanel.add(dayEventsPanel);
 		mainPanel.setWidgetLeftWidth(dayEventsPanel, 0.0, Unit.PX, 467.0, Unit.PX);
@@ -53,20 +71,25 @@ public class mainView extends Composite{
 		
         ListBox listBox_1_1 = new ListBox();
         dayEventsPanel.add(listBox_1_1);
-        dayEventsPanel.setWidgetLeftWidth(listBox_1_1, 190.0, Unit.PX, 220.0, Unit.PX);
-        dayEventsPanel.setWidgetTopHeight(listBox_1_1, 0.0, Unit.PX, 369.0, Unit.PX);
+        dayEventsPanel.setWidgetLeftWidth(listBox_1_1, 236.0, Unit.PX, 220.0, Unit.PX);
+        dayEventsPanel.setWidgetTopHeight(listBox_1_1, 27.0, Unit.PX, 369.0, Unit.PX);
         listBox_1_1.setVisibleItemCount(5);
 		
 		Button btnX_1 = new Button("X");
 		dayEventsPanel.add(btnX_1);
-		dayEventsPanel.setWidgetLeftWidth(btnX_1, 409.0, Unit.PX, 27.0, Unit.PX);
-		dayEventsPanel.setWidgetTopHeight(btnX_1, 0.0, Unit.PX, 30.0, Unit.PX);
+		dayEventsPanel.setWidgetLeftWidth(btnX_1, 203.0, Unit.PX, 27.0, Unit.PX);
+		dayEventsPanel.setWidgetTopHeight(btnX_1, 169.0, Unit.PX, 30.0, Unit.PX);
 		
         Button btnView = new Button("View");
-        mainPanel.add(btnView);
-		mainPanel.setWidgetLeftWidth(btnView, 110.0, Unit.PX, 81.0, Unit.PX);
-		mainPanel.setWidgetTopHeight(btnView, 366.0, Unit.PX, 30.0, Unit.PX);
-		*/
+        dayEventsPanel.add(btnView);
+        dayEventsPanel.setWidgetLeftWidth(btnView, 121.0, Unit.PX, 81.0, Unit.PX);
+        dayEventsPanel.setWidgetTopHeight(btnView, 366.0, Unit.PX, 30.0, Unit.PX);
+        
+        DatePicker mainDate = new DatePicker();
+        dayEventsPanel.add(mainDate);
+        dayEventsPanel.setWidgetLeftWidth(mainDate, 11.0, Unit.PX, 230.0, Unit.PX);
+        dayEventsPanel.setWidgetTopHeight(mainDate, 169.0, Unit.PX, 235.0, Unit.PX);*/
+		
 		////////////////////////////////////////////////////
 		//Sign out button: signs the user out upon click
 		Button signOut = new Button("Sign out");
@@ -107,9 +130,10 @@ public class mainView extends Composite{
 	                createEventPanel.setWidgetTopHeight(eventNamelabel, 20.0, Unit.PX, 20.0, Unit.PX);
 	                
 	                //Calendar date picker widget
-	                createEventPanel.add(mainDate);
-	                createEventPanel.setWidgetLeftWidth(mainDate, 267.0, Unit.PX, 191.0, Unit.PX);
-	                createEventPanel.setWidgetTopHeight(mainDate, 68.0, Unit.PX, 191.0, Unit.PX);
+	                final DatePicker dp = new DatePicker();
+	                createEventPanel.add(dp);
+	                createEventPanel.setWidgetLeftWidth(dp, 267.0, Unit.PX, 191.0, Unit.PX);
+	                createEventPanel.setWidgetTopHeight(dp, 68.0, Unit.PX, 191.0, Unit.PX);
 	
 	                Label datePickerlabel = new Label();
 	                datePickerlabel.setText("Select a date");
@@ -161,29 +185,25 @@ public class mainView extends Composite{
 	                createEventPanel.setWidgetTopHeight(btnAddEvent, 286.0, Unit.PX, 40.0, Unit.PX);
 	                
 	                btnAddEvent.addClickHandler(new ClickHandler() {
-		                @SuppressWarnings("deprecation")
-		
+		                @SuppressWarnings("deprecation")		
 		                public void onClick(ClickEvent event) { 
 							//Create the event if all fields have been completed
-							if(eventName.getValue() != null && mainDate.getValue() != null && eventStartTime.getValue() > 0000 && eventStartTime.getValue() < 2400
+							if(eventName.getValue() != null && dp.getValue() != null && eventStartTime.getValue() > 0000 && eventStartTime.getValue() < 2400
 									&& eventEndTime.getValue() > 0000 && eventEndTime.getValue() < 2400){
 								
-								RPC.eventManagementService.createEvent(ChronosUI.userID, eventName.getValue(), mainDate.getValue().getMonth(), mainDate.getValue().getDate(), mainDate.getValue().getYear(),
-										eventStartTime.getValue(), eventEndTime.getValue(), eventDetails.getValue(), new AsyncCallback<Void>(){
-	
+								RPC.eventManagementService.createEvent(ChronosUI.userID, eventName.getValue(), dp.getValue().getMonth(), dp.getValue().getDate(), dp.getValue().getYear(),
+										eventStartTime.getValue(), eventEndTime.getValue(), eventDetails.getValue(), new AsyncCallback<Void>(){	
 											@Override
 											public void onFailure(Throwable caught) {
-												GWT.log("RPC call to create event failed: " + caught.getMessage());
-												
-											}
-	
+												GWT.log("RPC call to create event failed: " + caught.getMessage());												
+											}	
 											@Override
 											public void onSuccess(Void result) {
 												createEventPanel.clear();
 												mainPanel.remove(createEventPanel);
 												GWT.log("Event created");
-											}
-									
+												//Remove the createEventPanel and notify the user of the successful event creation
+											}							
 									
 								});
 								
@@ -211,99 +231,113 @@ public class mainView extends Composite{
 	            }
 	        }});
         
-		
-		//Calendar button: Displays an actual calendar for the month
+//////////////////////////////////////////////////////////////////////CALENDAR BUTTON/////////////////////////////////////////////////////////////////////////////////
+		/*
+		 * Panel containing a calendar widget
+		 * Upon selecting date and clicking on view, the client will display
+		 * a list of even titles in sequential order for the given date
+		 */
 		Button btnCalendar = new Button("Calendar");
 		mainPanel.add(btnCalendar);
 		mainPanel.setWidgetLeftWidth(btnCalendar, 0.0, Unit.PX, 81.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(btnCalendar, 123.0, Unit.PX, 30.0, Unit.PX);
 		btnCalendar.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
-            	if(dayEventsPanel.isAttached()){
-	            	if(!calWin){
-		                // Label to select a date
-	            		mainPanel.add(dayEventsPanel);
-	            		mainPanel.setWidgetLeftWidth(dayEventsPanel, 0.0, Unit.PX, 467.0, Unit.PX);
-	            		mainPanel.setWidgetTopHeight(dayEventsPanel, 86.0, Unit.PX, 401.0, Unit.PX);
-	            		
-		                Label lblSelectADate = new Label("Select a date to view events");
-		                dayEventsPanel.add(lblSelectADate);
-		                dayEventsPanel.setWidgetLeftWidth(lblSelectADate, 110.0, Unit.PX, 175.0, Unit.PX);
-		                dayEventsPanel.setWidgetTopHeight(lblSelectADate, 0.0, Unit.PX, 25.0, Unit.PX);
-		                
-		                //DatePicker for selecting day you want events to be displayed for
-		                dayEventsPanel.add(mainDate);
-		                dayEventsPanel.setWidgetLeftWidth(mainDate, 0.0, Unit.PX, 191.0, Unit.PX);
-		                dayEventsPanel.setWidgetTopHeight(mainDate, 169.0, Unit.PX, 414.0, Unit.PX);
-		                
-		                //View button - Displays the selected date's list of events
-		                Button btnView = new Button("View");
-		                dayEventsPanel.add(btnView);
-		                dayEventsPanel.setWidgetLeftWidth(btnView, 220.0, Unit.PX, 81.0, Unit.PX);
-		                dayEventsPanel.setWidgetTopHeight(btnView, 227.0, Unit.PX, 30.0, Unit.PX);
-		        		btnView.addClickHandler(new ClickHandler() {      			
-
-							@Override
-							public void onClick(ClickEvent event) {
-								//Create a new panel to display the selected day's events
-								
-								mainPanel.add(dayEventsPanel);
-								mainPanel.setWidgetLeftWidth(dayEventsPanel, 197.0, Unit.PX, 249.0, Unit.PX);
-								mainPanel.setWidgetTopHeight(dayEventsPanel, 50.0, Unit.PX, 352.0, Unit.PX);
-								
-								mainPanel.add(dayEventsPanel);
-								mainPanel.setWidgetLeftWidth(dayEventsPanel, 266.0, Unit.PX, 246.0, Unit.PX);
-								mainPanel.setWidgetTopHeight(dayEventsPanel, 50.0, Unit.PX, 390.0, Unit.PX);
-								
-								
-		        				
-		        				SimpleDateFormat date = new SimpleDateFormat("MMddyyyyHHmm");
-		        				int month = Integer.parseInt(date.format(new Date()).toString().substring(0, 2));
-		        				int day = Integer.parseInt(date.format(new Date()).toString().substring(2, 4));
-		        				int year = Integer.parseInt(date.format(new Date()).toString().substring(4, 8));		        				
-		        				
-		        				RPC.eventManagementService.getDayString(ChronosUI.userID, month, day, year, new AsyncCallback<ArrayList<String>>(){
-
-									@Override
-									public void onFailure(Throwable caught) {
-										GWT.log("RPC call to getDayString failed: " + caught.getMessage());
-										
-									}
-
-									@Override
-									public void onSuccess(
-										ArrayList<String> result) {
-																			
-								        ListBox listBox_1 = new ListBox();
-								        dayEventsPanel.add(listBox_1);
-								        dayEventsPanel.setWidgetLeftWidth(listBox_1, 0.0, Unit.PX, 220.0, Unit.PX);
-								        dayEventsPanel.setWidgetTopHeight(listBox_1, 0.0, Unit.PX, 369.0, Unit.PX);
-										listBox_1.setVisibleItemCount(5);
-										
-										Button btnX = new Button("X");
-										dayEventsPanel.add(btnX);
-										dayEventsPanel.setWidgetLeftWidth(btnX, 364.0, Unit.PX, 27.0, Unit.PX);
-										dayEventsPanel.setWidgetTopHeight(btnX, 50.0, Unit.PX, 30.0, Unit.PX);
-										
-										btnX.addClickHandler(new ClickHandler() {								
-											public void onClick(ClickEvent event) {
-												mainPanel.remove(dayEventsPanel);
-											}
-											
-												
-										});
-										
-									}	        					
-		        				});
-							}
-		        		});
-		        		
-	            	}
-	            	else{
-	            		//Remove dayEventsPanel
-	            		mainPanel.remove(dayEventsPanel);
-	            	}
-	            }
+            	if(!dayEventsWin){
+	        		 //Layout panel for list of selected day's events
+	                final LayoutPanel dayEventsPanel = new LayoutPanel();
+	        		mainPanel.add(dayEventsPanel);
+	        		mainPanel.setWidgetLeftWidth(dayEventsPanel, 0.0, Unit.PX, 467.0, Unit.PX);
+	        		mainPanel.setWidgetTopHeight(dayEventsPanel, 86.0, Unit.PX, 401.0, Unit.PX);
+	        		
+	        		
+					//Calendar widget
+	        		final DatePicker mainDate = new DatePicker();
+	        		dayEventsPanel.add(mainDate);
+	        		dayEventsPanel.setWidgetLeftWidth(mainDate, 0.0, Unit.PX, 191.0, Unit.PX);
+	        		dayEventsPanel.setWidgetTopHeight(mainDate, 169.0, Unit.PX, 414.0, Unit.PX);
+	        		        		
+	        		Button btnX = new Button("X");
+	        		dayEventsPanel.add(btnX);
+	        		dayEventsPanel.setWidgetLeftWidth(btnX, 409.0, Unit.PX, 27.0, Unit.PX);
+	        		dayEventsPanel.setWidgetTopHeight(btnX, 0.0, Unit.PX, 30.0, Unit.PX);
+	        		
+	        		btnX.addClickHandler(new ClickHandler() {								
+						public void onClick(ClickEvent event) {
+							mainPanel.remove(dayEventsPanel);
+						}										
+							
+					});
+	        		
+	                Button btnView = new Button("View");
+	                dayEventsPanel.add(btnView);
+	                dayEventsPanel.setWidgetLeftWidth(btnView, 110.0, Unit.PX, 81.0, Unit.PX);
+	                dayEventsPanel.setWidgetTopHeight(btnView, 366.0, Unit.PX, 30.0, Unit.PX);
+	                //Click handler for the view button
+	        		btnView.addClickHandler(new ClickHandler() {
+						@SuppressWarnings("deprecation")
+						@Override
+						public void onClick(ClickEvent event) {
+	        				RPC.eventManagementService.getDayString(ChronosUI.userID, mainDate.getValue().getMonth(), mainDate.getValue().getDate(),
+	        						mainDate.getValue().getYear(), new AsyncCallback<ArrayList<String>>(){
+	
+								@Override
+								public void onFailure(Throwable caught) {
+									System.out.println("RPC call to getDayString failed: " + caught.getMessage());									
+								}	
+								@Override
+								public void onSuccess(ArrayList<String> result) {
+									//Display a list of events for the selected date
+									//"No events" will be the only value inside of the array if the user does not have events for that day, so it shouldn't ever be null
+									//List of selected date's events
+					                ListBox listBox = new ListBox();
+					                dayEventsPanel.add(listBox);
+					                dayEventsPanel.setWidgetLeftWidth(listBox, 190.0, Unit.PX, 220.0, Unit.PX);
+					                dayEventsPanel.setWidgetTopHeight(listBox, 0.0, Unit.PX, 369.0, Unit.PX);
+					                listBox.setVisibleItemCount(5);
+					                //Add event titles to the box
+					                for(int i = 0; i < result.size(); i++){
+					                	listBox.addItem(result.get(i));
+					                }
+					                
+					                //Remove the dateEventsPanel
+					                mainPanel.remove(dayEventsPanel);
+					                
+					                //Notify the user of the newly created event
+					                /**
+					        		 * Event created panel
+					        		 */
+					        		final LayoutPanel eventCreated = new LayoutPanel();
+					        		mainPanel.add(eventCreated);
+					        		mainPanel.setWidgetLeftWidth(eventCreated, 187.0, Unit.PX, 270.0, Unit.PX);
+					        		mainPanel.setWidgetTopHeight(eventCreated, 172.0, Unit.PX, 57.0, Unit.PX);
+					        		
+					        		Label lblEventCreated = new Label("Event Created!");
+					        		lblEventCreated.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+					        		eventCreated.add(lblEventCreated);
+					        		eventCreated.setWidgetLeftWidth(lblEventCreated, 0.0, Unit.PX, 270.0, Unit.PX);
+					        		eventCreated.setWidgetTopHeight(lblEventCreated, 0.0, Unit.PX, 52.0, Unit.PX);
+					        		
+					        		Button closeEventCreated = new Button("Close");
+					        		eventCreated.add(closeEventCreated);
+					        		eventCreated.setWidgetLeftWidth(closeEventCreated, 189.0, Unit.PX, 81.0, Unit.PX);
+					        		eventCreated.setWidgetTopHeight(closeEventCreated, 24.0, Unit.PX, 30.0, Unit.PX);
+					        		closeEventCreated.addClickHandler(new ClickHandler() {
+										@Override
+										public void onClick(ClickEvent event) {
+											mainPanel.remove(eventCreated);
+										}
+					        		});
+								}	        					
+	        				});
+						}
+	        		});
+	        		
+	        	}
+	        	else{
+	        		//Remove dayEventsPanel
+	        		mainPanel.remove(dayEventsPanel);
+	        	}	            
             }
 
         });
@@ -312,6 +346,8 @@ public class mainView extends Composite{
 		mainPanel.add(dateLabel);
 		mainPanel.setWidgetLeftWidth(dateLabel, 580.0, Unit.PX, 64.0, Unit.PX);
 		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
+		
+		
 				
 		SimpleDateFormat date = new SimpleDateFormat("MMddyyyyHHmm");
 		int month = Integer.parseInt(date.format(new Date()).substring(0, 2));
@@ -329,7 +365,8 @@ public class mainView extends Composite{
 				Label lblNextevent = new Label(result);
 				mainPanel.add(lblNextevent);
 				mainPanel.setWidgetLeftWidth(lblNextevent, 144.0, Unit.PX, 320.0, Unit.PX);
-				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);				
+				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);
+				
 			}
 		});
 	}

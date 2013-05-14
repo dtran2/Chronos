@@ -23,7 +23,7 @@ public class FakeDatabase implements IDatabase {
 		createAccount("Patric", "Star", "a@b.c");
 		createAccount("Sandy", "Cheeks", "q@r.s");
 		//Create test events to work with
-		createEvent(getAccount("Spongebob").getID(), "Christmas", 12, 25, 2013, 1200, 2400, "Christmas");
+		createEvent(getAccount("Spongebob").getID(), "Christmas", 5, 13, 2013, 1200, 2400, "Christmas");
 		createEvent(getAccount("Spongebob").getID(), "New Years", 1, 1, 2014, 1200, 2400, "New Years day!");
 		createEvent(getAccount("Spongebob").getID(), "Thanksgiving", 11, 28, 2013, 1200, 2400, "turkey turkey turkey");		
 	}
@@ -48,7 +48,7 @@ public class FakeDatabase implements IDatabase {
 		//Remove events that have already occured
 		if(!today.isEmpty()){
 			for(int i = 0; i < today.size(); i++){
-				if(today.get(i).getStartTime() < (hour * 1000 + minutes)){
+				if(today.get(i).getStartTime() < (hour * 1000 + minutes) && today.get(i).getEndTime() > (hour * 1000 + minutes)){
 					today.remove(i);
 				}
 			}
@@ -56,7 +56,7 @@ public class FakeDatabase implements IDatabase {
 			//Sift through the array list to find the next coming event
 			for(int i = 1; i < today.size(); i++){
 				//if the current "nextEvent"'s start time is greater, it is not the next event 
-				if(nextEvent.getStartTime() > today.get(i).getStartTime() && today.get(i).getStartTime() > (hour*1000 + minutes)){
+				if(nextEvent.getStartTime() > today.get(i).getStartTime() && today.get(i).getStartTime() > (hour * 1000 + minutes)){
 					nextEvent = today.get(i);
 				}
 			}
