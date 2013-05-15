@@ -28,25 +28,29 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class mainView extends Composite{
-	private DateTimeFormat date;
 	private LayoutPanel dayEventsPanel;
 	private DateLabel dateLabel;
 	private boolean calWin;				//Keeps track of whether or not the calendar exists on the panel 
     private final LayoutPanel createEventPanel;
     private boolean dayEventsWin;
 	public mainView(){
-		date = DateTimeFormat.getFormat("MMddyyyyHHmm");
+		final LayoutPanel mainPanel = new LayoutPanel();
+		mainPanel.setWidgetLeftWidth(dateLabel, 580.0, Unit.PX, 64.0, Unit.PX);
+		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
+		initWidget(mainPanel);		
 		dayEventsWin = false;
 		dayEventsPanel = new LayoutPanel();
 		dateLabel = new DateLabel();
 		calWin = false;
 		createEventPanel = new LayoutPanel();
-		final LayoutPanel mainPanel = new LayoutPanel();
-		initWidget(mainPanel);		
+		
 		//DEBUGGING ONLY AREA///////////////
+		
 		/**
 		 * Event created panel
-		 *//*
+		 */
+		
+		/*
 		LayoutPanel eventCreated = new LayoutPanel();
 		mainPanel.add(eventCreated);
 		mainPanel.setWidgetLeftWidth(eventCreated, 187.0, Unit.PX, 270.0, Unit.PX);
@@ -91,6 +95,8 @@ public class mainView extends Composite{
         dayEventsPanel.setWidgetTopHeight(mainDate, 169.0, Unit.PX, 235.0, Unit.PX);*/
 		
 		////////////////////////////////////////////////////
+		
+		
 		//Sign out button: signs the user out upon click
 		Button signOut = new Button("Sign out");
 		signOut.addClickHandler(new ClickHandler() {
@@ -336,10 +342,9 @@ public class mainView extends Composite{
         });
 		
 		//Display the user's next event details
-		mainPanel.setWidgetLeftWidth(dateLabel, 580.0, Unit.PX, 64.0, Unit.PX);
-		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
 		
 		
+		DateTimeFormat date = DateTimeFormat.getFormat("MMddyyyyHHmm");
 		int month = Integer.parseInt(date.format(new Date()).substring(0, 2));
 		int day = Integer.parseInt(date.format(new Date()).toString().substring(2, 4));
 		int year = Integer.parseInt(date.format(new Date()).toString().substring(4, 8));

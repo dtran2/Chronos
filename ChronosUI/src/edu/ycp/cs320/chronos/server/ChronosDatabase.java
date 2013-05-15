@@ -84,15 +84,31 @@ public class ChronosDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				
 				try {
+					/*
+					 * Table of accounts and passwords
+					 */
+					
 					stmt = conn.prepareStatement(
 							"create table account_list (" +
 							"  id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
 							"  user_names VARCHAR(200) NOT NULL, " +
 							"  user_password VARCHAR(200) " +
 							")"
-					);
-					
+					);					
 					stmt.executeUpdate();
+					
+					/*
+					 * Table of events
+					 */
+					stmt = conn.prepareStatement(
+							"create table event_list (" +
+							"  id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
+							"  user_names VARCHAR(200) NOT NULL, " +
+							"  user_password VARCHAR(200) " +
+							")"
+					);					
+					stmt.executeUpdate();				
+					
 				} finally {
 					DatabaseUtil.closeQuietly(stmt);
 				}
