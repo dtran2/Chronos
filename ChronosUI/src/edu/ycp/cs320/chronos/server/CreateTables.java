@@ -1,4 +1,4 @@
-package edu.ycp.cs320.chronos.server;
+/*package edu.ycp.cs320.chronos.server;
 
 import java.sql.SQLException;
 
@@ -14,3 +14,4 @@ public class CreateTables {
 	}
 
 }
+*/

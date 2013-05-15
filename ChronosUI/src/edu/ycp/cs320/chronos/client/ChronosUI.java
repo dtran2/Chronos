@@ -46,6 +46,7 @@ public class ChronosUI implements EntryPoint{
 
 			@Override
 			public void onFailure(Throwable caught) {
+				userID = null;
 				GWT.log("RPC call to get user ID failed: " + caught.getMessage());								
 			}
 

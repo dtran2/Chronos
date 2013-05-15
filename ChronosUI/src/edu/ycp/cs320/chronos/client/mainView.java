@@ -33,10 +33,11 @@ public class mainView extends Composite{
 	private boolean calWin;				//Keeps track of whether or not the calendar exists on the panel 
     private final LayoutPanel createEventPanel;
     private boolean dayEventsWin;
+    private ListBox viewEvents;
 	public mainView(){
 		final LayoutPanel mainPanel = new LayoutPanel();
-		mainPanel.setWidgetLeftWidth(dateLabel, 580.0, Unit.PX, 64.0, Unit.PX);
-		mainPanel.setWidgetTopHeight(dateLabel, 0.0, Unit.PX, 18.0, Unit.PX);
+		viewEvents = new ListBox();
+		mainPanel.setSize("700px", "700px");
 		initWidget(mainPanel);		
 		dayEventsWin = false;
 		dayEventsPanel = new LayoutPanel();
@@ -95,12 +96,37 @@ public class mainView extends Composite{
         dayEventsPanel.setWidgetTopHeight(mainDate, 169.0, Unit.PX, 235.0, Unit.PX);*/
 		
 		////////////////////////////////////////////////////
+		DateTimeFormat date = DateTimeFormat.getFormat("MMddyyyyHHmm");
+		int month = Integer.parseInt(date.format(new Date()).substring(0, 2));
+		int day = Integer.parseInt(date.format(new Date()).toString().substring(2, 4));
+		int year = Integer.parseInt(date.format(new Date()).toString().substring(4, 8));
+		int hour = Integer.parseInt(date.format(new Date()).toString().substring(8, 10));
+		int min = Integer.parseInt(date.format(new Date()).toString().substring(10, 12));
+
+		mainPanel.add(viewEvents);
+		mainPanel.setWidgetLeftWidth(viewEvents, 373.0, Unit.PX, 211.0, Unit.PX);
+		mainPanel.setWidgetTopHeight(viewEvents, 33.0, Unit.PX, 200.0, Unit.PX);
+		viewEvents.setVisibleItemCount(5);
+		RPC.eventManagementService.getDayString(ChronosUI.userID, month, day, year, new AsyncCallback<ArrayList<String>>(){
+			@Override
+			public void onFailure(Throwable caught) {
+				GWT.log("RPC call to getDayString failed: " + caught.getMessage());
+			}
+			@Override
+			public void onSuccess(
+				ArrayList<String> result) {
+					for(int i = 0; i < result.size();i++){
+						viewEvents.addItem(result.get(i));
+					}	        					
+				}
+		});
 		
-		
+
 		//Sign out button: signs the user out upon click
 		Button signOut = new Button("Sign out");
 		signOut.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				ChronosUI.setUser(null);
 				ChronosUI.setCurrentView(new LoginView());
 			}
 		});
@@ -252,6 +278,7 @@ public class mainView extends Composite{
 	                btnClose.addClickHandler(new ClickHandler() {
 		                public void onClick(ClickEvent event) {
 		                	mainPanel.remove(createEventPanel);
+		                	ChronosUI.setCurrentView(new mainView());	
 		                }
 	                });
 	            }
@@ -291,11 +318,11 @@ public class mainView extends Composite{
 	        		
 	        		btnX.addClickHandler(new ClickHandler() {								
 						public void onClick(ClickEvent event) {
+							dayEventsWin = false;
 							mainPanel.remove(dayEventsPanel);
 						}										
 							
 					});
-	        		
 	                Button btnView = new Button("View");
 	                dayEventsPanel.add(btnView);
 	                dayEventsPanel.setWidgetLeftWidth(btnView, 110.0, Unit.PX, 81.0, Unit.PX);
@@ -303,7 +330,7 @@ public class mainView extends Composite{
 	                //Click handler for the view button
 	        		btnView.addClickHandler(new ClickHandler() {
 						@SuppressWarnings("deprecation")
-						@Override
+						@Override		
 						public void onClick(ClickEvent event) {
 	        				RPC.eventManagementService.getDayString(ChronosUI.userID, mainDate.getValue().getMonth(), mainDate.getValue().getDate(),
 	        						mainDate.getValue().getYear(), new AsyncCallback<ArrayList<String>>(){
@@ -343,13 +370,6 @@ public class mainView extends Composite{
 		
 		//Display the user's next event details
 		
-		
-		DateTimeFormat date = DateTimeFormat.getFormat("MMddyyyyHHmm");
-		int month = Integer.parseInt(date.format(new Date()).substring(0, 2));
-		int day = Integer.parseInt(date.format(new Date()).toString().substring(2, 4));
-		int year = Integer.parseInt(date.format(new Date()).toString().substring(4, 8));
-		int hour = Integer.parseInt(date.format(new Date()).toString().substring(8, 10));
-		int min = Integer.parseInt(date.format(new Date()).toString().substring(10, 12));
 		RPC.eventManagementService.nextEventString(ChronosUI.user, month, day, year, hour, min, new AsyncCallback<String>(){
 			@Override
 			public void onFailure(Throwable caught) {
@@ -360,8 +380,7 @@ public class mainView extends Composite{
 				Label lblNextevent = new Label(result);
 				mainPanel.add(lblNextevent);
 				mainPanel.setWidgetLeftWidth(lblNextevent, 144.0, Unit.PX, 320.0, Unit.PX);
-				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);
-				
+				mainPanel.setWidgetTopHeight(lblNextevent, 50.0, Unit.PX, 41.0, Unit.PX);				
 			}
 		});
 	}

@@ -4,6 +4,9 @@ package edu.ycp.cs320.chronos.server;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.google.gwt.core.client.GWT;
+
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
 
@@ -37,7 +40,6 @@ public class FakeDatabase implements IDatabase {
 	 * 
 	 */
 
-	@Override
 	/**
 	 * Sifts through a list of today's events and returns the Event that will occur next
 	 * 
@@ -50,7 +52,6 @@ public class FakeDatabase implements IDatabase {
 		Event nextEvent = new Event(eventIDCount, getUserID(username), month, day, year, 0, 0, "No events today", "default");
 		eventIDCount++;
 		//Remove events that have already occured
-		if(today.size() != 0){
 			for(int i = 0; i < today.size(); i++){
 				if(today.get(i).getStartTime() < (hour * 1000 + minutes) && today.get(i).getEndTime() > (hour * 1000 + minutes)){
 					today.remove(i);
@@ -64,8 +65,9 @@ public class FakeDatabase implements IDatabase {
 					nextEvent = today.get(i);
 				}
 			}
-		}
 		return nextEvent;
+		
+		
 	}
 	
 	/**
@@ -140,7 +142,8 @@ public class FakeDatabase implements IDatabase {
 	public ArrayList<String> getDayString(int userID, int month, int day, int year){
 		ArrayList<Event> list = getTodaysEvents(userID, month, day, year);
 		ArrayList<String> s = new ArrayList<String>();
-		if(!list.isEmpty()){
+		GWT.log("Size of day list: " + list.size());
+		if(list.isEmpty()){
 			for(int i = 0; i < list.size(); i++){
 				s.add(list.get(i).getName());
 			}

@@ -1,4 +1,4 @@
-package edu.ycp.cs320.chronos.server;
+/*package edu.ycp.cs320.chronos.server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 import edu.ycp.cs320.chronos.shared.Account;
 import edu.ycp.cs320.chronos.shared.Event;
-/**
+*//**
  * Main database class
  * @author dtran2
  *
- */
+ *//*
 public class ChronosDatabase implements IDatabase {
 	//Set the database to the FakeDatabase.java (located within the same package)
 	//FIXME: The address set to DATABASE may need to change if problems occur
@@ -84,9 +84,9 @@ public class ChronosDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				
 				try {
-					/*
+					
 					 * Table of accounts and passwords
-					 */
+					 
 					
 					stmt = conn.prepareStatement(
 							"create table account_list (" +
@@ -97,9 +97,9 @@ public class ChronosDatabase implements IDatabase {
 					);					
 					stmt.executeUpdate();
 					
-					/*
+					
 					 * Table of events
-					 */
+					 
 					stmt = conn.prepareStatement(
 							"create table event_list (" +
 							"  id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
@@ -390,3 +390,4 @@ public class ChronosDatabase implements IDatabase {
 				});
 	}
 }
+*/
